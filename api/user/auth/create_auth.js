@@ -1,10 +1,10 @@
 var chance = require('chance');
 
-var resolver = require('../../resolver');
-var tool = require('../../tools');
+var resolver = require('../../../resolver');
+var tool = require('../../../tools');
 
 /* Router function */
-function auth(req, res)
+function createAuth(req, res)
 {
   var db = resolver.resolve('db');
   var users = db.collection('users');
@@ -59,5 +59,5 @@ function auth(req, res)
   });
 }
 
-exports.auth = auth;
+exports.createAuth = createAuth;
 

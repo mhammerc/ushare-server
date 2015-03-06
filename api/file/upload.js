@@ -1,5 +1,7 @@
 var chance = require('chance');
 
+var auth = require('../user/auth/connect_auth');
+
 var resolver = require('../../resolver');
 var tool = require('../../tools');
 
@@ -18,7 +20,7 @@ function upload(req, res)
         return;
     }
 
-    getUserFromAuth(credentials, res, function (err, author)
+    auth.getUserFromAuth(credentials, function (err, author)
     {
         insertNewFile(file, author, function (err, result)
         {
@@ -32,11 +34,12 @@ function upload(req, res)
 function insertNewFile(file, author, callback)
 {
     var db = resolver.resolve('db');
-    var collection = db.collection('files');
+    var files = db.collection('files');
+    var users = db.collection('users');
 
     var shortName = chance(Date.now()).string(fileOptions);
 
-    collection.insert(
+    files.insert(
     {
         shortName: shortName,
         originalName: file.originalname,
@@ -58,46 +61,22 @@ function insertNewFile(file, author, callback)
         }
 
         callback(null, result);
+
+        if (author == undefined)
+            return;
+
+        users.update(
+        {
+            _id: author
+        },
+        {
+            $inc:
+            {
+                nOfFilesSaved: 1
+            }
+        });
     });
 }
-
-/* callback(err, _id) -> _id is undefined if there is no user like this or if there is no credentials*/
-function getUserFromAuth(credentials, res, callback)
-{
-    if (!tool.exist(credentials.accountKey) && !tool.exist(credentials.privateKey))
-    {
-        callback(null, undefined);
-        return;
-    }
-
-    var db = resolver.resolve('db');
-    //var users = db.collection('users');
-    var auth = db.collection('usersAuth');
-
-    var accountKey = credentials.accountKey;
-    var privateKey = credentials.privateKey;
-
-    auth.findOne(
-    {
-        accountKey: accountKey,
-        privateKey: privateKey
-    }, function (err, doc)
-    {
-        if (err != null)
-        {
-            callback(true, undefined);
-            return;
-        }
-        if (doc === null)
-        {
-            callback(null, undefined);
-            return;
-        }
-
-        callback(null, doc._id);
-    });
-}
-
 
 exports.upload = upload;
 

@@ -1,5 +1,7 @@
 var path = require('path');
 
+var auth = require('../user/auth/connect_auth');
+
 var resolver = require('../../resolver');
 
 /* Router function */
@@ -13,7 +15,7 @@ function read(req, res)
     collection.findOne(
     {
         shortName: shortName
-    }, function(err, document)
+    }, function (err, document)
     {
         if (err)
         {
@@ -22,7 +24,27 @@ function read(req, res)
 
         var filepath = path.resolve(fileDest + document.name);
         res.sendFile(filepath);
+
         addOneViewToFile(document._id);
+
+        addOneViewToUser(document.author);
+    });
+}
+
+function addOneViewToUser(_id)
+{
+    var db = resolver.resolve('db');
+    var collection = db.collection('users');
+
+    collection.update(
+    {
+        _id: _id
+    },
+    {
+        $inc:
+        {
+            nOfViews: 1
+        }
     });
 }
 

@@ -70,6 +70,7 @@ function registerNewUser(infos, collection, callback)
     accountKey: accountKey,
     accountType: 'regular',
     nOfFilesSaved: 0,
+    nOfViews: 0,
     registeredAt: tool.timestamp(),
     lastAccessAt: tool.timestamp(),
     lastModificationAt: tool.timestamp()
