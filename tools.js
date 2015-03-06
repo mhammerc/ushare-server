@@ -1,7 +1,7 @@
 /* Return true if the variable exist */
 function exist(variable)
 {
-  return (typeof variable !== 'undefined')
+    return (typeof variable !== 'undefined')
 }
 
 
@@ -11,17 +11,17 @@ function exist(variable)
  */
 function timestamp()
 {
-  return Math.round(Date.now() / 1000);
+    return Math.round(Date.now() / 1000);
 }
 
 /* Send error status and message to client */
 function respondWithError(error, res)
 {
-  res.status(500).json(
-  {
-    success: false,
-    errorMessage: error
-  });
+    res.status(500).json(
+    {
+        success: false,
+        errorMessage: error
+    });
 }
 
 exports.exist = exist;

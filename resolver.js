@@ -1,13 +1,13 @@
 var objects = {};
 
-exports.register = function(name, obj)
+exports.register = function (name, obj)
 {
     objects[name] = obj;
 
     return this;
 };
 
-exports.resolve = function(name)
+exports.resolve = function (name)
 {
     if (objects[name] !== undefined)
     {

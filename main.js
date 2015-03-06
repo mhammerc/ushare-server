@@ -11,15 +11,15 @@ mongoUrl = 'mongodb://localhost:27017/usquare-server'
 
 /* random options for shortname */
 fileOptions = {
-  length: 5,
-  pool: 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789'
-    /* characters authorized inside the shorts url */
+    length: 5,
+    pool: 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789'
+        /* characters authorized inside the shorts url */
 }
 
 accountKeyOptions = {
-  length: 20,
-  pool: 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789'
-    /* characters authorized inside the shorts url */
+    length: 20,
+    pool: 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789'
+        /* characters authorized inside the shorts url */
 }
 
 /* Where file will be saved (relative to main.js) */
@@ -27,8 +27,8 @@ fileDest = './uploads/';
 
 /* Uploads limits */
 fileLimits = {
-  fileSize: 50000000,
-  files: 1
+    fileSize: 50000000,
+    files: 1
 };
 
 /* Base url of the app */

@@ -11,20 +11,34 @@ function upload(req, res)
     var file = req.files.file;
     var credentials = req.body;
 
-    if (typeof file === 'undefined')
+    if (!tool.exist(file))
     {
-        res.status(500).send(
-        {
-            error: 'There is no files here'
-        });
+        tool.respondWithError('There is no file in the request', res);
         return;
     }
 
     auth.getUserFromAuth(credentials, function (err, author)
     {
+        if (err != null)
+        {
+            tools.respondWithError('An error occurred. Check your credentials', res);
+            return;
+        }
+
+        if (user === null)
+        {
+            tools.respondWithError('Check your credentials', res);
+            return;
+        }
+
         insertNewFile(file, author, function (err, result)
         {
-            /* TODO : manage errors */
+            if (err != null)
+            {
+                tool.respondWithError('An error occurred');
+                return;
+            }
+
             res.send(baseUrl + result.ops[0].shortName)
         });
     });
