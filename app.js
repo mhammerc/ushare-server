@@ -9,6 +9,7 @@ var resolver = require('./resolver');
 function start()
 {
     var app = express();
+
     app.use(multer(
     {
         dest: fileDest,
