@@ -1,0 +1,18 @@
+{
+  "name": "uplimg-js-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chance": "^0.7.3",
+    "express": "^4.12.2",
+    "mongodb": "~2.0",
+    "multer": "^0.1.8",
+    "validator": "^3.33.0"
+  }
+}
