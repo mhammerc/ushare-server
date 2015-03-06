@@ -11,6 +11,8 @@ function create(app)
 
   app.post('/user/register', userAPI.register)
   app.post('/user/auth', userAPI.auth);
+  app.get('/user/info', userAPI.getInfos);
+  app.get('/user/uploads', userAPI.getUploads)
 }
 
 exports.create = create;

@@ -50,6 +50,7 @@ function insertNewFile(file, author, callback)
         size: file.size,
         password: null,
         views: 0,
+        receivedAt: tool.timestamp(),
         usquareVersion: undefined,
         author: author
     }, function (err, result)
