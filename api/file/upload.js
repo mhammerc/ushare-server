@@ -25,7 +25,7 @@ function upload(req, res)
             return;
         }
 
-        if (user === null)
+        if (author === null)
         {
             tools.respondWithError('Check your credentials', res);
             return;
