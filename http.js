@@ -1,7 +1,13 @@
-/* All function who are qualified as 'Controller' must call the callback
- * with the following parameters : callback(err, res).
- * err define the HTTP code. res is sended to the client.
- * Controller get these parameters : controller(req, callback).
+/* All main API functions are called Controller. They must take as argument
+ * req and a callback. Req is the data given from the client and the callback
+ * is a function. You must call the callback with these parameters :
+ * callback(err, res). Err will change HTTP code. If nothing bad happen you
+ * must give null as err. And res is the raw text in order to be transmitted
+ * to the client (like JSON string).
+ *
+ * There is to request handlers : the http handler and the WebSockets handler.
+ * they call same API functions and they work same, they are just not called on
+ * same events and they do not answer to same protocol.
  */
 
 /* The controller is the logic of a route */

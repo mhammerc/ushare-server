@@ -1,3 +1,5 @@
+/* See http.js for more informations */
+
 var userAPI = require('./api/user');
 
 function WSHandler(ws, req, msg)
