@@ -16,7 +16,6 @@ function HTTPHandler(controller, req, res)
         {
             result.success = false;
             res.status(401);
-            console.log('error'); //todo delete
         }
 
         if (!tools.exist(result.success))

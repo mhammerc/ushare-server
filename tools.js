@@ -14,18 +14,6 @@ function timestamp()
     return Math.round(Date.now() / 1000);
 }
 
-/* Send error status and message to client */
-// TOODOOOOOOOOOOO TO DELETE
-function respondWithError(error, res)
-{
-    res.status(401).json(
-    {
-        success: false,
-        errorMessage: error
-    });
-
-    console.log('HAAAAA ERROR')
-}
 
 /* This generate error as JSON. Useful to send to clients */
 function error(code, string)
