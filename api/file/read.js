@@ -4,8 +4,14 @@ var auth = require('../user/auth/connect_auth');
 
 var resolver = require('../../resolver');
 
-/* Router function */
-function read(req, res)
+var tools = require('../../tools.js');
+
+/* Controller */
+/* This is a special controller, it not return JSON but a file.
+ * In this way, we take the third argument, it is bad to use it else.
+ * The callback will never be called.
+ */
+function read(req, callback, res)
 {
     var shortName = req.params.id;
 
@@ -17,12 +23,20 @@ function read(req, res)
         shortName: shortName
     }, function (err, document)
     {
-        if (err)
+        if (err != null)
         {
-            res.status(500).send('An error occurred');
+            res.status(500).send('Internal error');
+            return;
+        }
+
+        if (document == null)
+        {
+            res.status(404).send('Document not found');
+            return;
         }
 
         var filepath = path.resolve(fileDest + document.name);
+
         res.sendFile(filepath);
 
         addOneViewToFile(document._id);

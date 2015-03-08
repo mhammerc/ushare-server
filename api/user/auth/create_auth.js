@@ -1,62 +1,62 @@
 var chance = require('chance');
 
 var resolver = require('../../../resolver');
-var tool = require('../../../tools');
+var tools = require('../../../tools');
 
-/* Router function */
+/* Controller */
 function createAuth(req, res)
 {
-  var db = resolver.resolve('db');
-  var users = db.collection('users');
-  var auth = db.collection('usersAuth');
+    var db = resolver.resolve('db');
+    var users = db.collection('users');
+    var auth = db.collection('usersAuth');
 
-  var credentials = req.body;
+    var credentials = req.body;
 
-  users.findOne(
-  {
-    username: credentials.username,
-    password: credentials.password
-  }, function (err, doc)
-  {
-    if (err != null)
+    users.findOne(
     {
-      tool.respondWithError('Internal error', res);
-      return;
-    }
-
-    if (doc === null)
+        username: credentials.username,
+        password: credentials.password
+    }, function (err, doc)
     {
-      tool.respondWithError('Unknown credentials', res);
-      return;
-    }
+        if (err != null)
+        {
+            res(true, tools.error(550, 'Internal error'));
+            return;
+        }
 
-    var privateKey = chance(Date.now()).string(accountKeyOptions);
+        if (doc === null)
+        {
+            res(true, tools.error(550, 'Internal error'));
+            return;
+        }
 
-    auth.insert(
-    {
-      userId: doc._id,
-      accountKey: doc.accountKey,
-      privateKey: privateKey,
-      createdAt: tool.timestamp(),
-      lastAccessAt: tool.timestamp()
-    }, function (err, result)
-    {
-      if (err != null)
-      {
-        tool.respondWithError('Error on creating the auth', res);
-        return;
-      }
-      console.log(result);
+        var privateKey = chance(Date.now()).string(accountKeyOptions);
 
-      res.json(
-      {
-        success: true,
-        accountKey: doc.accountKey,
-        privateKey: privateKey
-      });
-    });
+        auth.insert(
+        {
+            userId: doc._id,
+            accountKey: doc.accountKey,
+            privateKey: privateKey,
+            createdAt: tools.timestamp(),
+            lastAccessAt: tools.timestamp()
+        }, function (err, result)
+        {
+            if (err != null)
+            {
+                res(true, tools.error(550, 'Internal error'));
+                return;
+            }
 
-  });
+            var object = {
+                success: true,
+                accountKey: doc.accountKey,
+                privateKey: privateKey
+            };
+
+            res(null, tools.otj(object));
+
+        }); /* auth.insert() */
+    }); /* users.findOne() */
 }
 
 exports.createAuth = createAuth;

@@ -7,20 +7,20 @@ var app = require('./app');
  */
 
 /* Url to connect to mongo */
-mongoUrl = 'mongodb://localhost:27017/usquare-server'
+mongoUrl = 'mongodb://localhost:27017/usquare-server';
 
 /* random options for shortname */
 fileOptions = {
     length: 5,
     pool: 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789'
         /* characters authorized inside the shorts url */
-}
+};
 
 accountKeyOptions = {
     length: 20,
     pool: 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789'
         /* characters authorized inside the shorts url */
-}
+};
 
 /* Where file will be saved (relative to main.js) */
 fileDest = './uploads/';
@@ -33,6 +33,8 @@ fileLimits = {
 
 /* Base url of the app */
 baseUrl = 'http://localhost:3000/';
+
+appPort = 3000;
 
 app.start();
 

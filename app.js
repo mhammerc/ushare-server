@@ -1,5 +1,7 @@
 var express = require('express');
+var expressWs = require('express-ws')
 var multer = require('multer');
+var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 
@@ -10,6 +12,9 @@ function start()
 {
     var app = express();
 
+    /* Install websocket functions */
+    expressWs(app);
+
     app.use(multer(
     {
         dest: fileDest,
@@ -18,6 +23,11 @@ function start()
         {
             return filename + '_' + Date.now();
         }
+    }));
+
+    app.use(bodyParser.urlencoded(
+    {
+        extended: false
     }));
 
     MongoClient.connect(mongoUrl, function (err, db)
@@ -31,7 +41,7 @@ function start()
 
     router.create(app);
 
-    var server = app.listen(3000, function ()
+    var server = app.listen(appPort, function ()
     {
         var host = server.address().address
         var port = server.address().port

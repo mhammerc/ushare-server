@@ -3,24 +3,24 @@ var auth = require('./auth/connect_auth.js');
 var tools = require('../../tools.js');
 var resolver = require('../../resolver.js')
 
-/* Router function */
+/* Controller */
 function getInfos(req, res)
 {
-    var credentials = {};
-    credentials.accountKey = req.get('accountKey');
-    credentials.privateKey = req.get('privateKey');
+    var credentials = {}
+    credentials.accountKey = req.accountKey
+    credentials.privateKey = req.privateKey
 
     auth.getUserFromAuth(credentials, function (err, user)
     {
         if (err != null)
         {
-            tools.respondWithError('An error occurred. Check your credentials', res);
+            res(true, tools.error(551, 'Check your credentials'));
             return;
         }
 
         if (user === null)
         {
-            tools.respondWithError('Check your credentials', res);
+            res(true, tools.error(551, 'Check your credentials'));
             return;
         }
 
@@ -35,7 +35,7 @@ function getInfos(req, res)
 
             if (err != null)
             {
-                tools.respondWithError('An error occurred', res);
+                res(true, tools.error(550, 'Check your credentials'));
                 return;
             }
 
@@ -46,7 +46,7 @@ function getInfos(req, res)
             response.nOfFilesSaved = doc.nOfFilesSaved;
             response.nOfViews = doc.nOfViews;
 
-            res.json(response);
+            res(null, tools.otj(response));
         });
     });
 

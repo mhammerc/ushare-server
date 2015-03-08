@@ -1,16 +1,16 @@
 var resolver = require('../../../resolver');
 var tool = require('../../../tools');
 
-/* This function is used to get the _id of an auth 
- * callback(err, _id) -> _id is undefined if there is no user like this
+/* This function is used to get the user _id from account and private key
+ * callback(err, _id) -> _id is undefined if no user was find
  * or if there is no credentials
- * the credentials parameter need to be : { accountKey:[string], privateKey:[string] }
+ * the credentials parameter need to be : { accountKey: String, privateKey: String }
  */
 function getUserFromAuth(credentials, callback)
 {
     if (credentials != null && !tool.exist(credentials.accountKey) && !tool.exist(credentials.privateKey))
     {
-        callback(null, null);
+        callback(true, null);
         return;
     }
 
@@ -34,7 +34,7 @@ function getUserFromAuth(credentials, callback)
         }
         if (doc === null)
         {
-            callback(null, null);
+            callback(true, null);
             return;
         }
 
