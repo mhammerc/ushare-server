@@ -52,7 +52,6 @@ function otj(object)
 
 exports.exist = exist;
 exports.timestamp = timestamp;
-exports.respondWithError = respondWithError;
 exports.error = error;
 exports.jto = jto;
 exports.otj = otj;

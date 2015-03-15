@@ -39,6 +39,9 @@ function read(req, callback, res)
 
         res.sendFile(filepath);
 
+        if (req.silent === true)
+            return;
+
         addOneViewToFile(document._id);
 
         addOneViewToUser(document.author);

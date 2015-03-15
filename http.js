@@ -21,7 +21,9 @@ function HTTPHandler(controller, req, res)
         if (err !== null && err)
         {
             result.success = false;
-            res.status(401);
+            res.status(401).send(result);
+            console.log('error');
+            return;
         }
 
         if (!tools.exist(result.success))

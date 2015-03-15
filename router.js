@@ -19,6 +19,13 @@ function createHTTPRoutes(app)
 {
     app.get('/:id', function (req, res)
     {
+        req.silent = false;
+        h.HTTPHandler(fileAPI.read, req, res);
+    });
+
+    app.get('/silent/:id', function (req, res)
+    {
+        req.silent = true;
         h.HTTPHandler(fileAPI.read, req, res);
     });
 

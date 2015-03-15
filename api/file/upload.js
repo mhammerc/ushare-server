@@ -40,6 +40,8 @@ function upload(req, res)
 
             insertNewFile(file, author, callback);
         });
+
+        return;
     }
 
     insertNewFile(file, null, callback);
