@@ -8,6 +8,7 @@ var tools = require('../../tools');
 /* Controller */
 function upload(req, res)
 {
+    console.log('entered');
     var file = req.files.file;
     var credentials = req.body;
 
@@ -26,6 +27,7 @@ function upload(req, res)
         }
 
         res(null, baseUrl + result.ops[0].shortName);
+        console.log('File saved, link : ' + baseUrl + result.ops[0].shortName);
     };
 
     if (tools.exist(req.body.accountKey))

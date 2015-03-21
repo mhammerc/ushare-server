@@ -12,6 +12,12 @@ function createAuth(req, res)
 
     var credentials = req.body;
 
+    if(!tools.exist(credentials.username) || !tools.exist(credentials.password))
+    {
+      res(true, tools.error(550, 'Invalid request, see API docs'));
+      return;
+    }
+
     users.findOne(
     {
         username: credentials.username,
@@ -26,7 +32,7 @@ function createAuth(req, res)
 
         if (doc === null)
         {
-            res(true, tools.error(550, 'Internal error'));
+            res(true, tools.error(550, 'User not found'));
             return;
         }
 
