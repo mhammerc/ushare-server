@@ -8,8 +8,8 @@ var tools = require('../../tools');
 /* Controller */
 function upload(req, res)
 {
-    console.log('entered');
     var file = req.files.file;
+    var version = req.body.version;
     var credentials = req.body;
 
     if (!tools.exist(file))
@@ -27,7 +27,6 @@ function upload(req, res)
         }
 
         res(null, baseUrl + result.ops[0].shortName);
-        console.log('File saved, link : ' + baseUrl + result.ops[0].shortName);
     };
 
     if (tools.exist(req.body.accountKey))
@@ -40,17 +39,17 @@ function upload(req, res)
                 return;
             }
 
-            insertNewFile(file, author, callback);
+            insertNewFile(file, author, version, callback);
         });
 
         return;
     }
 
-    insertNewFile(file, null, callback);
+    insertNewFile(file, null, version, callback);
 
 }
 
-function insertNewFile(file, author, callback)
+function insertNewFile(file, author, version, callback)
 {
     var db = resolver.resolve('db');
     var files = db.collection('files');
@@ -71,7 +70,8 @@ function insertNewFile(file, author, callback)
         views: 0,
         receivedAt: tools.timestamp(),
         usquareVersion: undefined,
-        author: author
+        author: author,
+        version: version
     }, function (err, result)
     {
         if (err != null)
