@@ -1,4 +1,5 @@
 var app = require('./app');
+console = require('better-console');
 
 /* We need to write two configuration system :
  * - One for hard data like database url and database password
