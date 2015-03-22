@@ -22,7 +22,7 @@ function HTTPHandler(controller, req, res)
         {
             result.success = false;
             res.status(401).send(result);
-            console.log('error');
+            console.log(result);
             return;
         }
 

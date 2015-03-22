@@ -33,9 +33,9 @@ fileLimits = {
 };
 
 /* Base url of the app */
-baseUrl = 'http://localhost:3000/';
+baseUrl = 'http://46.101.47.41/';
 
-appPort = 3000;
+appPort = 80;
 
 app.start();
 
