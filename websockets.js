@@ -9,7 +9,7 @@ function WSHandler(ws, req, msg)
     var callback = function (err, result)
     {
         ws.send(result);
-    }
+    };
 
     if (path === '/user/info')
     {
