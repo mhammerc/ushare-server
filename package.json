@@ -9,9 +9,9 @@
   "author": "Martin Hammerchmidt",
   "license": "ISC",
   "dependencies": {
-    "better-console": "^0.2.4",
     "body-parser": "^1.12.0",
     "chance": "^0.7.3",
+    "colors": "^1.0.3",
     "express": "^4.12.2",
     "express-ws": "^0.2.5",
     "mongodb": "~2.0",

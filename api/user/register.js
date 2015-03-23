@@ -61,7 +61,7 @@ function register(req, res)
 
 function registerNewUser(infos, collection, callback)
 {
-    var accountKey = chance(Date.now()).string(accountKeyOptions);
+    var accountKey = chance(Date.now()).string(Config.accountKeyOptions);
 
     collection.insert(
     {

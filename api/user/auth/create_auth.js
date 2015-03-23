@@ -36,7 +36,7 @@ function createAuth(req, res)
             return;
         }
 
-        var privateKey = chance(Date.now()).string(accountKeyOptions);
+        var privateKey = chance(Date.now()).string(Config.accountKeyOptions);
 
         auth.insert(
         {

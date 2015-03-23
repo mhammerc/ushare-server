@@ -26,7 +26,7 @@ function upload(req, res)
             return;
         }
 
-        res(null, baseUrl + result.ops[0].shortName);
+        res(null, Config.baseUrl + result.ops[0].shortName);
     };
 
     if (tools.exist(req.body.accountKey))
@@ -55,7 +55,7 @@ function insertNewFile(file, author, version, callback)
     var files = db.collection('files');
     var users = db.collection('users');
 
-    var shortName = chance(Date.now()).string(fileOptions);
+    var shortName = chance(Date.now()).string(Config.fileOptions);
 
     files.insert(
     {
