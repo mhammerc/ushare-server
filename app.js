@@ -1,39 +1,45 @@
 var express = require('express');
 var expressWs = require('express-ws');
-var multer = require('multer');
-var bodyParser = require('body-parser');
+var multer = require('multer'); // Used to parse file and multipart requests
+var bodyParser = require('body-parser'); // Used to parse classic POST requests
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 
 var router = require('./router');
 var resolver = require('./resolver');
 
-function start() {
+function start()
+{
     var app = express();
 
     /* Install websocket functions */
     expressWs(app);
 
-    app.use(multer({
+    app.use(multer(
+    {
         dest: Config.fileDest,
         limits: Config.fileLimits,
-        rename: function(fieldname, filename, req, res) {
+        rename: function(fieldname, filename, req, res)
+        {
             return filename + '_' + Date.now();
         }
     }));
 
-    app.use(bodyParser.urlencoded({
+    app.use(bodyParser.urlencoded(
+    {
         extended: false
     }));
 
-    MongoClient.connect(Config.mongoUrl, function(err, db) {
+    MongoClient.connect(Config.mongoUrl, function(err, db)
+    {
         assert.equal(null, err);
 
         console.log("Connected to MongoDB".green);
 
         router.create(app);
 
-        var server = app.listen(Config.basePort, function() {
+        var server = app.listen(Config.basePort, function()
+        {
             var host = server.address().address;
             var port = server.address().port;
 
@@ -49,3 +55,4 @@ function start() {
 }
 
 exports.start = start;
+

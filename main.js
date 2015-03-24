@@ -1,19 +1,26 @@
 colors = require('colors');
+
 var app = require('./app');
+
 Config = null;
 
 /* We get configuration from config file */
 try
 {
-    Config = require('./config.json');
-} catch(e) {
-    try
-    {
-        Config = require('./config.default.json')
-    } catch(e) {
-        console.log('You need at least config.json or config.default.json to get the app work.'.red);
-        process.exit();
-    }
+	Config = require('./config.json');
+}
+catch (e)
+{
+	/* If the main config file does not exist we try to load the default config file */
+	try
+	{
+		Config = require('./config.default.json')
+	}
+	catch (e)
+	{
+		console.log('You need at least config.json or config.default.json to get the app work.'.red);
+		process.exit();
+	}
 }
 
 /* We need to write two configuration system :
