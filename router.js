@@ -17,35 +17,36 @@ function create(app)
 /* Create HTTP classic routes */
 function createHTTPRoutes(app)
 {
-    app.get('/:id', function (req, res)
+    app.get('/:id', function(req, res)
     {
         req.silent = false;
         h.HTTPHandler(fileAPI.read, req, res);
     });
 
-    app.get('/silent/:id', function (req, res)
+    /* To see a file without incrementing the view counter */
+    app.get('/silent/:id', function(req, res)
     {
         req.silent = true;
         h.HTTPHandler(fileAPI.read, req, res);
     });
 
-    app.post('/file/upload', function (req, res)
+    app.post('/file/upload', function(req, res)
     {
         h.HTTPHandler(fileAPI.upload, req, res);
     });
 
 
-    app.post('/user/register', function (req, res)
+    app.post('/user/register', function(req, res)
     {
         h.HTTPHandler(userAPI.register, req, res);
     })
 
-    app.post('/user/auth', function (req, res)
+    app.post('/user/auth', function(req, res)
     {
         h.HTTPHandler(userAPI.auth, req, res);
     });
 
-    app.get('/user/info', function (req, res)
+    app.get('/user/info', function(req, res)
     {
         var data = {}
         data.accountKey = req.headers.accountkey;
@@ -54,7 +55,7 @@ function createHTTPRoutes(app)
         h.HTTPHandler(userAPI.getInfos, data, res);
     });
 
-    app.get('/user/uploads', function (req, res)
+    app.get('/user/uploads', function(req, res)
     {
         var data = {}
         data.accountKey = req.headers.accountkey;
@@ -66,9 +67,9 @@ function createHTTPRoutes(app)
 
 function createWebSocketsRoutes(app)
 {
-    app.ws('/', function (ws, req)
+    app.ws('/', function(ws, req)
     {
-        ws.on('message', function (msg)
+        ws.on('message', function(msg)
         {
             onMessage(ws, req, msg);
         });
@@ -78,7 +79,7 @@ function createWebSocketsRoutes(app)
 /* Inside this scope we have : ws -> the socket | req -> express req
  * and for sure the msg who contain the msg
  */
-var onMessage = function (ws, req, msg)
+var onMessage = function(ws, req, msg)
 {
     try
     {

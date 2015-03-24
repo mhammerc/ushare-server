@@ -16,7 +16,7 @@ var tools = require('./tools.js');
 
 function HTTPHandler(controller, req, res)
 {
-    var callback = function (err, result)
+    var callback = function(err, result)
     {
         if (err !== null && err)
         {
