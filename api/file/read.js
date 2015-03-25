@@ -21,7 +21,7 @@ function read(req, callback, res)
     collection.findOne(
     {
         shortName: shortName
-    }, function (err, document)
+    }, function(err, document)
     {
         if (err != null)
         {
@@ -35,7 +35,7 @@ function read(req, callback, res)
             return;
         }
 
-        var filepath = path.resolve(fileDest + document.name);
+        var filepath = path.resolve(Config.fileDest + document.name);
 
         res.sendFile(filepath);
 
