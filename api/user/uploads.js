@@ -45,7 +45,9 @@ function getUploads(req, res)
                 receivedAt: 1
             }
         }).sort(
-        {}, -1).limit(50).toArray(function(err, docs)
+        {
+            $natural: -1
+        }).limit(50).toArray(function(err, docs)
         {
             var response = {};
             response.nOfFiles = docs.length;
