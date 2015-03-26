@@ -62,7 +62,12 @@ function createHTTPRoutes(app)
         data.privateKey = req.headers.privatekey;
 
         h.HTTPHandler(userAPI.getUploads, data, res);
-    })
+    });
+
+    app.get('/', function(req, res)
+    {
+        res.location('http://usquare.io');
+    });
 }
 
 function createWebSocketsRoutes(app)

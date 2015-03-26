@@ -10,7 +10,7 @@ function getUploads(req, res)
     credentials.accountKey = req.accountKey
     credentials.privateKey = req.privateKey
 
-    auth.getUserFromAuth(credentials, function (err, user)
+    auth.getUserFromAuth(credentials, function(err, user)
     {
         if (err != null)
         {
@@ -44,7 +44,10 @@ function getUploads(req, res)
                 password: 1,
                 receivedAt: 1
             }
-        }).toArray(function (err, docs)
+        }).sort(
+        {
+            x: -1
+        }).limit(50).toArray(function(err, docs)
         {
             var response = {};
             response.nOfFiles = docs.length;
