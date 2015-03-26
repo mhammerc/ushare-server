@@ -46,7 +46,7 @@ function getUploads(req, res)
             }
         }).sort(
         {
-            x: 1
+            x: -1
         }).limit(50).toArray(function(err, docs)
         {
             var response = {};
