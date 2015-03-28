@@ -47,7 +47,7 @@ function getInfos(req, res)
                 author: user,
                 receivedAt:
                 {
-                    $gt: Math.round(new Date(date.getFullYear, date.getMonth, date.getDay()))
+                    $gt: new Date(date.getFullYear(), date.getMonth(), date.getDay()).getSeconds()
                 }
             }).count(function(err, count)
             {
