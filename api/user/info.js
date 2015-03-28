@@ -10,7 +10,7 @@ function getInfos(req, res)
     credentials.accountKey = req.accountKey
     credentials.privateKey = req.privateKey
 
-    auth.getUserFromAuth(credentials, function (err, user)
+    auth.getUserFromAuth(credentials, function(err, user)
     {
         if (err != null)
         {
@@ -26,11 +26,12 @@ function getInfos(req, res)
 
         var db = resolver.resolve('db');
         var users = db.collection('users');
+        var files = db.collection('files');
 
         users.findOne(
         {
             _id: user
-        }, function (err, doc)
+        }, function(err, doc)
         {
 
             if (err != null)
@@ -39,14 +40,33 @@ function getInfos(req, res)
                 return;
             }
 
-            var response = {};
-            response.username = doc.username;
-            response.email = doc.email;
-            response.accountType = doc.accountType;
-            response.nOfFilesSaved = doc.nOfFilesSaved;
-            response.nOfViews = doc.nOfViews;
+            var date = new Date();
 
-            res(null, tools.otj(response));
+            files.find(
+            {
+                author: user,
+                receivedAt:
+                {
+                    $gt: Math.round(new Date(date.getFullYear, date.getMonth, date.getDay()))
+                }
+            }).count(function(err, count)
+            {
+                if (err !== null)
+                {
+                    res(true, tools.error(550, 'Check your credentials'));
+                    return;
+                }
+
+                var response = {};
+                response.username = doc.username;
+                response.email = doc.email;
+                response.accountType = doc.accountType;
+                response.nOfFilesSaved = doc.nOfFilesSaved;
+                response.nOfFilesSavedToday = count;
+                response.nOfViews = doc.nOfViews;
+
+                res(null, tools.otj(response));
+            });
         });
     });
 

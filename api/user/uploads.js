@@ -49,6 +49,11 @@ function getUploads(req, res)
             $natural: -1
         }).limit(50).toArray(function(err, docs)
         {
+            if (err !== null)
+            {
+                res(550, tools.error('Internal error occurred: ' + err))
+            }
+
             var response = {};
             response.nOfFiles = docs.length;
             response.files = docs;
