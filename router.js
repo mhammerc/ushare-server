@@ -35,6 +35,10 @@ function createHTTPRoutes(app)
         h.HTTPHandler(fileAPI.upload, req, res);
     });
 
+    app.post('/file/delete', function(req, res)
+    {
+        h.HTTPHandler(fileAPI.deletef, req, res);
+    });
 
     app.post('/user/register', function(req, res)
     {
@@ -66,7 +70,7 @@ function createHTTPRoutes(app)
 
     app.get('/', function(req, res)
     {
-        res.location('http://usquare.io');
+        res.redirect(301, 'http://usquare.io');
     });
 }
 

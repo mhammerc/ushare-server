@@ -18,7 +18,7 @@ function upload(req, res)
         return;
     }
 
-    var callback = function (err, result)
+    var callback = function(err, result)
     {
         if (err != null)
         {
@@ -31,9 +31,9 @@ function upload(req, res)
 
     if (tools.exist(req.body.accountKey))
     {
-        auth.getUserFromAuth(credentials, function (err, author)
+        auth.getUserFromAuth(credentials, function(err, author)
         {
-            if (err != null)
+            if (err !== null)
             {
                 res(true, tools.error(551, 'Check your credentials'));
                 return;
@@ -72,7 +72,7 @@ function insertNewFile(file, author, version, callback)
         usquareVersion: undefined,
         author: author,
         version: version
-    }, function (err, result)
+    }, function(err, result)
     {
         if (err != null)
         {
