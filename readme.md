@@ -1,9 +1,8 @@
-# uShare server
-This repository is private. So, please, no fork it or share the code. Thanks.
+# The server of uShare 
 
-Coding rules :
-* Expand your braces
-* Use tabs
-* Already add new blank line at the end of the file
+Welcome to the private repository of the server of uShare.
+Run `npm install` inside the *server* folder then run `node main.js` (or iojs).
 
-See in third-party folder the .jsbeautifyrc file who is used by HTML-CSS-JS Pretify sublime text plugin to keep code clean.
+See files inside the *docs* folder to understand the architecture of this app and write the better code of the entire world.
+
+**Welcome in the paradise !**
