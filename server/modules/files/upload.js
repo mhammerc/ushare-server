@@ -8,7 +8,7 @@ function upload(req, res)
 {
 	if(!req.files.file)
 	{
-		return res.json({success:false, error:'File missing in field \'file\'.'});
+		return res.status(404).json({success:false, error:'File missing in field \'file\'.'});
 	}
 
 	var fileData = new File(); // The file inside MongoDB
@@ -33,7 +33,8 @@ function upload(req, res)
 	{
 		if(err)
 		{
-			return Error(err);
+			Error(err);
+			return res.status(500).json({success:false, error:'Internal error, please warn us.'});
 		}
 
 		var date = new Date(Date.now());
@@ -46,8 +47,8 @@ function upload(req, res)
 			+ `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:` 
 			+ `${date.getMilliseconds()}`);
 
-		res.send(fileData.shortName);
-	})
+		res.status(200).send(fileData.shortName);
+	});
 }
 
 module.exports = upload;
