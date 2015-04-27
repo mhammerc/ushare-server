@@ -1,6 +1,7 @@
 var FileSchema = new Mongoose.Schema({
 	shortName: String,
-	originalName: String,
+	fileName: String,
+	originalFileName: String,
 	encoding: String,
 	mimetype: String,
 	extension: String,
@@ -17,7 +18,11 @@ var FileSchema = new Mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	ushareVersion: String,
+	lastViewAt: {
+		type: Date,
+		default: Date.now
+	},
+	sourceName: String,
 	author: String
 });
 

@@ -1,6 +1,6 @@
 var router = require('./router');
 
-/* Once we get connected to MongoDB, let's start the app by itself */
+/* Once we get connected to MongoDB, let's start the app */
 function start() {
 
 	// Create routes

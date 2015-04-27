@@ -23,15 +23,15 @@ function router() {
 
 	});
 
-	ExpressApp('/user/info', function(req, res) {
+	ExpressApp.get('/user/info', function(req, res) {
 
 	});
 
-	ExpressApp('/user/uploads', function(req, res) {
+	ExpressApp.get('/user/uploads', function(req, res) {
 
 	});
 
-	app.get('/', function(req, res) {
+	ExpressApp.get('/', function(req, res) {
 		res.redirect(301, 'http://usquare.io');
 	});
 }
