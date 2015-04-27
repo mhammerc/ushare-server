@@ -1,4 +1,5 @@
-var FileSchema = new Mongoose.Schema({
+var FileSchema = new Mongoose.Schema(
+{
 	shortName: String,
 	fileName: String,
 	originalFileName: String,
@@ -6,19 +7,23 @@ var FileSchema = new Mongoose.Schema({
 	mimetype: String,
 	extension: String,
 	size: Number,
-	password: {
+	password:
+	{
 		type: String,
 		default: ""
 	},
-	views: {
+	views:
+	{
 		type: Number,
 		default: 0
 	},
-	receivedAt: {
+	receivedAt:
+	{
 		type: Date,
 		default: Date.now
 	},
-	lastViewAt: {
+	lastViewAt:
+	{
 		type: Date,
 		default: Date.now
 	},

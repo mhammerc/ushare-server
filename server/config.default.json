@@ -1,0 +1,24 @@
+{
+  "mongoUrl": "mongodb://localhost:27017/ushare-server",
+  "fileDest": "./files/",
+  "baseUrl": "http://localhost/",
+  "basePort": 3000,
+
+  "fileLimits": {
+    "fileSize": 50000000,
+    "files": 1
+  },
+
+  "newFiles" : {
+	  "shortName": {
+	    "length": 4,
+	    "pool": "azertyuiopqsdfghjklmwxcvbn123456789"
+	  }
+  },
+
+  "accountKeyOptions": {
+    "length": 20,
+    "pool": "azertyuiopqsdfghjklmwxcvbn123456789"
+  }
+
+}

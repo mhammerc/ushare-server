@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/martin-mh/ushare-server#readme",
   "dependencies": {
+    "body-parser": "^1.12.3",
+    "chance": "^0.7.3",
     "cli-color": "^1.0.0",
     "express": "^4.12.3",
-    "mongoose": "^4.0.2"
+    "mongoose": "^4.0.2",
+    "multer": "^0.1.8"
   }
 }

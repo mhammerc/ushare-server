@@ -1,4 +1,7 @@
-function router() {
+var upload = require('./modules/files/upload');
+
+function router()
+{
 	ExpressApp.get('/:id', function(req, res) {
 
 	});
@@ -7,8 +10,9 @@ function router() {
 
 	});
 
-	ExpressApp.post('/file/upload', function(req, res) {
-
+	ExpressApp.post('/file/upload', function(req, res)
+	{
+		upload(req, res);
 	});
 
 	ExpressApp.post('/file/delete', function(req, res) {
@@ -31,7 +35,8 @@ function router() {
 
 	});
 
-	ExpressApp.get('/', function(req, res) {
+	ExpressApp.get('/', function(req, res)
+	{
 		res.redirect(301, 'http://usquare.io');
 	});
 }
