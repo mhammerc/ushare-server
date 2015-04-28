@@ -10,7 +10,7 @@ function start()
 	{
 		if(!err)
 		{
-			Notice('App started');
+			uShare.notice('App started');
 		}
 	});
 }

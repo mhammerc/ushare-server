@@ -33,7 +33,7 @@ function upload(req, res)
 	{
 		if(err)
 		{
-			Error(err);
+			uShare.error(err);
 			return res.status(500).json({success:false, error:'Internal error, please warn us.'});
 		}
 
@@ -42,7 +42,7 @@ function upload(req, res)
 		/* Log something like this : 
 		 * 'File 'FileName.exe' received at 3/27/2015 23:47:1:695' 
 		 */
-		Notice(`File '${fileData.fileName}' received at ` 
+		uShare.notice(`File '${fileData.fileName}' received at ` 
 			+ `${date.getMonth()}/${date.getDate()}/${date.getFullYear()} ` 
 			+ `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:` 
 			+ `${date.getMilliseconds()}`);

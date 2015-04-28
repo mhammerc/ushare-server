@@ -1,9 +1,10 @@
+var read = require('./modules/files/read');
 var upload = require('./modules/files/upload');
 
 function router()
 {
 	ExpressApp.get('/:id', function(req, res) {
-
+		read(req, res);
 	});
 
 	ExpressApp.get('/silent/:id', function(req, res) {

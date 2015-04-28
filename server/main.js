@@ -1,22 +1,31 @@
 Mongoose = require('mongoose');
 ExpressApp = require('express')();
 
+
 var clc = require('cli-color');
 
-Notice = function(string)
+uShare = {};
+
+uShare.notice = function notice(string)
 {
 	console.log(clc.green(string));
 };
 
-Error = function(string)
+uShare.error = function error(string)
 {
 	console.log(clc.red(string));
 };
 
-Warn = function(string)
+uShare.warn = function warn(string)
 {
 	console.log(clc.yellow(string));
 };
+
+var bodyParser = require('body-parser');
+ExpressApp.use(bodyParser.urlencoded(
+{
+	extended: true
+}));
 
 var multer = require('multer');
 ExpressApp.use(multer(
@@ -28,12 +37,6 @@ ExpressApp.use(multer(
 		return filename + '_' + Date.now()
 	}
 }));
-
-//var bodyParser = require('body-parser');
-/*ExpressApp.use(bodyParser.urlencoded(
-{
-	extended: false
-}));*/
 
 /* --- */
 
@@ -53,7 +56,7 @@ catch(e)
 	}
 	catch(e)
 	{
-		Error('You need at least config.json or config.default.json in order to start the app.');
+		uShare.error('You need at least config.json or config.default.json in order to start the app.');
 		process.exit();
 	}
 }
@@ -64,7 +67,7 @@ catch(e)
 
 var app = require('./app');
 
-Notice('Starting...');
+uShare.notice('Starting...');
 
 Mongoose.connect('mongodb://localhost/ushare');
 
@@ -74,7 +77,7 @@ db.on('error', console.error.bind(console, 'Connection error:'));
 
 db.once('open', function(callback)
 {
-	Notice('Connected to MongoDB');
+	uShare.notice('Connected to MongoDB');
 
 	app();
 });
