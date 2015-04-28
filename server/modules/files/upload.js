@@ -8,7 +8,7 @@ function upload(req, res)
 {
 	if(!req.files.file)
 	{
-		return res.status(404).json({success:false, error:'File missing in field \'file\'.'});
+		return res.status(404).sendError('File missing in field \'file\'.');
 	}
 
 	var fileData = new File(); // The file inside MongoDB
@@ -34,7 +34,7 @@ function upload(req, res)
 		if(err)
 		{
 			uShare.error(err);
-			return res.status(500).json({success:false, error:'Internal error, please warn us.'});
+			return res.status(500).sendError('Internal error, please warn us.');
 		}
 
 		var date = new Date(Date.now());

@@ -1,5 +1,10 @@
+/* Files management */
 var read = require('./modules/files/read');
 var upload = require('./modules/files/upload');
+//var delete = require('./modules/files/delete');
+
+/* User management */
+var register = require('./modules/users/register');
 
 function router()
 {
@@ -11,17 +16,16 @@ function router()
 
 	});
 
-	ExpressApp.post('/file/upload', function(req, res)
-	{
+	ExpressApp.post('/file/upload', function(req, res)	{
 		upload(req, res);
 	});
 
 	ExpressApp.post('/file/delete', function(req, res) {
-
+		delete(req, res);
 	});
 
 	ExpressApp.post('/user/register', function(req, res) {
-
+		register(req, res);
 	});
 
 	ExpressApp.post('/user/auth', function(req, res) {
@@ -36,8 +40,7 @@ function router()
 
 	});
 
-	ExpressApp.get('/', function(req, res)
-	{
+	ExpressApp.get('/', function(req, res) {
 		res.redirect(301, 'http://usquare.io');
 	});
 }
