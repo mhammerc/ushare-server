@@ -1,5 +1,5 @@
 {
-  "mongoUrl": "mongodb://localhost:27017/ushare-server",
+  "mongoUrl": "mongodb://localhost/ushare",
   "fileDest": "./files/",
   "baseUrl": "http://localhost/",
   "basePort": 3000,

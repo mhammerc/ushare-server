@@ -15,7 +15,6 @@ var EmailSchema = new Mongoose.Schema({
  */
 function encryptPassword(password)
 {
-	//var salt = bcrypt.genSaltSync(10);
 	return bcrypt.hashSync(password, 10);
 }
 

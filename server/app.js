@@ -23,11 +23,11 @@ function start()
 	// Create routes
 	router();
 
-	ExpressApp.listen(3000, function(err)
+	ExpressApp.listen(Config.basePort, function(err)
 	{
 		if(!err)
 		{
-			uShare.notice('App started');
+			uShare.notice(`App started on port ${Config.basePort}`);
 		}
 	});
 }
