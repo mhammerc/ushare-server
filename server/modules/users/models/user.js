@@ -117,4 +117,9 @@ UserSchema.methods.addEmailAddress = function addEmailAddress(email)
 	}
 }
 
+UserSchema.methods.incrementNumberOfFiles = function incrementNumberOfFiles()
+{
+	++this.profile.numberOfFiles;
+}
+
 module.exports = Mongoose.model('users', UserSchema);

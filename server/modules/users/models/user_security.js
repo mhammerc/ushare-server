@@ -1,3 +1,4 @@
+var User = require('./user');
 var Chance = require('chance');
 
 /* UserSecuritySchema define the collection who store every privateKey with his accountKey. 
@@ -26,18 +27,25 @@ var UserSecuritySchema = new Mongoose.Schema(
 	}
 });
 
-/* This function verify if an identity is right. You must pass three arguments :
+/* This function verify if an identity is right then get the user. You must pass three arguments :
  *   - userId: the _id of the involved user 
  *   - privateKey: the privateKey to test
- *   - cb: the callback to call with err as first argument (always null) and a boolean as
- *		   argument. If it is true, the identity is right, else not.
+ *   - cb: the callback to call with err as first argument (always null) and a User as second
+ *		   argument.
  */
 UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, privateKey, cb)
 {
+	if(!userId || !privateKey)
+	{
+		cb(null, false);
+		return;
+	}
+
 	this.findOne(
 	{
 		accountKey: userId,
-		privateKey: privateKey
+		privateKey: privateKey,
+		isValid: true
 	}, function(err, result)
 	{
 		if(err)
@@ -49,8 +57,23 @@ UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, priv
 
 		if(!result)
 			return cb(null, false);
-		cb(null, true);
-		return;
+		
+		User.findById(result.accountKey, function(err, document)
+		{
+			if(err)
+			{
+				cb(err, false);
+				return;
+			}
+
+			if(!document)
+			{
+				cb(new Error('No document found with this account and private key.'), false);
+				return;
+			}
+
+			cb(false, document);
+		});
 	});
 };
 

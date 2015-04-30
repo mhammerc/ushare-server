@@ -1,4 +1,5 @@
 var File = require('./models/file');
+var UserSecurity = require('./../users/models/user_security');
 var chance = require('chance');
 
 /* This function call a callback with a randomly generated shortName with the garantee that
@@ -36,6 +37,11 @@ function upload(req, res)
 		return res.status(404).sendError('File missing in field \'file\'.');
 	}
 
+	if(!req.body.source)
+	{
+		return res.sendError('You need to provide a source.');
+	}
+
 	getRandomShortName(function(shortName)
 	{
 		if(!shortName)
@@ -55,38 +61,54 @@ function upload(req, res)
 		fileData.mimetype = file.mimetype;
 		fileData.extension = file.extension;
 		fileData.size = file.size;
+		fileData.source = req.body.source;
 
-		if(req.body.version)
-		{
-			fileData.sourceName = req.body.version;
-		}
-
-		fileData.save(function (err, fileData)
+		UserSecurity.verifyIdentity(req.body.accountkey, req.body.privatekey, function(err, author)
 		{
 			if(err)
 			{
-				uShare.logError('Error on saving a file inside MongoDB.', err, {
-					ip: req.ip, 
-					body: req.body,
-					file: file
-				});
-
-				return res.status(500).sendError('Internal error, please warn us with the following '
-												+ `key: ${Date.now()}`);
+				var date = uShare.logError('error on verifying identity on an upload.');
+				res.status(500).sendError('Internal error. Please warn us with the following key : '
+					+ date);
+				return;
 			}
 
-			var date = new Date(Date.now());
+			if(!author)
+				fileData.author = null;
+			else
+			{
+				fileData.author = author._id;
+				author.incrementNumberOfFiles();
+				author.save();
+			}
 
-			/* Log something like this : 
-			 * 'File 'FileName.exe' received at 3/27/2015 23:47:1:695' 
-			 */
-			uShare.notice(`File '${fileData.fileName}' received at ` 
-				+ `${date.getMonth()}/${date.getDate()}/${date.getFullYear()} ` 
-				+ `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:` 
-				+ `${date.getMilliseconds()} (${fileData._id})`);
+			fileData.save(function (err, fileData)
+			{
+				if(err)
+				{
+					uShare.logError('Error on saving a file inside MongoDB.', err, {
+						ip: req.ip, 
+						body: req.body,
+						file: file
+					});
 
-			res.status(200).send(fileData.shortName);
-		}); /* fileData.save() */
+					return res.status(500).sendError('Internal error, please warn us with the following '
+													+ `key: ${Date.now()}`);
+				}
+
+				var date = new Date(Date.now());
+
+				/* Log something like this : 
+				 * 'File 'FileName.exe' received at 3/27/2015 23:47:1:695' 
+				 */
+				uShare.notice(`File '${fileData.fileName}' received at ` 
+					+ `${date.getMonth()}/${date.getDate()}/${date.getFullYear()} ` 
+					+ `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:` 
+					+ `${date.getMilliseconds()} (${fileData._id})`);
+
+				res.status(200).send(fileData.shortName);
+			}); /* fileData.save() */
+		}); /* UserSecurity.verifyIdentity */
 	}); /* getRandomShortName() */
 }
 

@@ -24,8 +24,12 @@ var FileSchema = new Mongoose.Schema(
 		default: Date.now
 	},
 	lastViewAt: Date,
-	sourceName: String,
-	author: String
+	source: String,
+	author: 
+	{
+		type: Mongoose.Schema.ObjectId, // The _id of a user
+		default: null
+	}
 });
 
 FileSchema.methods.incrementViewNumber = function incrementViewNumber()
