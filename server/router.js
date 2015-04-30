@@ -1,36 +1,36 @@
 /* Files management */
-var read = require('./modules/files/read');
-var upload = require('./modules/files/upload');
-//var delete = require('./modules/files/delete');
+var readFile = require('./modules/files/read');
+var uploadFile = require('./modules/files/upload');
+var deleteFile = require('./modules/files/delete');
 
 /* User management */
-var register = require('./modules/users/register');
-var auth = require('./modules/users/auth');
+var registerUser = require('./modules/users/register');
+var authUser = require('./modules/users/auth');
 
 function router()
 {
 	ExpressApp.get('/:id', function(req, res) {
-		read(req, res);
+		readFile(req, res);
 	});
 
 	ExpressApp.get('/silent/:id', function(req, res) {
-		read(req, res, true);
+		readFile(req, res, true);
 	});
 
 	ExpressApp.post('/file/upload', function(req, res)	{
-		upload(req, res);
+		uploadFile(req, res);
 	});
 
 	ExpressApp.post('/file/delete', function(req, res) {
-		//delete(req, res);
+		deleteFile(req, res);
 	});
 
 	ExpressApp.post('/user/register', function(req, res) {
-		register(req, res);
+		registerUser(req, res);
 	});
 
 	ExpressApp.post('/user/auth', function(req, res) {
-		auth(req, res);
+		authUser(req, res);
 	});
 
 	ExpressApp.get('/user/info', function(req, res) {

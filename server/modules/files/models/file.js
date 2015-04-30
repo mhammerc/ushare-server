@@ -29,6 +29,11 @@ var FileSchema = new Mongoose.Schema(
 	{
 		type: Mongoose.Schema.ObjectId, // The _id of a user
 		default: null
+	},
+	available: 
+	{
+		type: Boolean,
+		default: true
 	}
 });
 

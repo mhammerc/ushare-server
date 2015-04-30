@@ -1,5 +1,6 @@
 var User = require('./user');
-var Chance = require('chance');
+var chance = require('chance');
+var validator = require('validator');
 
 /* UserSecuritySchema define the collection who store every privateKey with his accountKey. 
  * Note that the accountKey is the _id of the user but shhhhhht.
@@ -41,6 +42,12 @@ UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, priv
 		return;
 	}
 
+	if(!validator.isMongoId(userId))
+	{
+		cb(null, false);
+		return;
+	}
+
 	this.findOne(
 	{
 		accountKey: userId,
@@ -50,8 +57,7 @@ UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, priv
 	{
 		if(err)
 		{
-			uShare.logError('Error on verifying identity.', err,
-				{userId: userId, privateKey: privateKey});
+			cb(err, false);
 			return;
 		}
 
@@ -68,7 +74,7 @@ UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, priv
 
 			if(!document)
 			{
-				cb(new Error('No document found with this account and private key.'), false);
+				cb(false, false);
 				return;
 			}
 
@@ -79,7 +85,7 @@ UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, priv
 
 UserSecuritySchema.methods.generateNewPrivateKey = function generateNewPrivateKey()
 {
-	this.privateKey = Chance(Date.now()).string(Config.privateKeyOptions);
+	this.privateKey = chance(Date.now()).string(Config.privateKeyOptions);
 	return this.privateKey;
 };
 

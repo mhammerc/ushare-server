@@ -8,7 +8,7 @@ var File = require('./models/file');
  */
 function read(req, res, silent)
 {
-	File.findOne({'shortName' : req.params.id}).exec(function(err, document)
+	File.findOne({'shortName': req.params.id, available: true}, function(err, document)
 	{
 		if(err || !document)
 		{
