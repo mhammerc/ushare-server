@@ -4,8 +4,9 @@ var File = require('./models/file');
 /* This controller handle all request that match '/:id'
  * It's usually the route used to see a file
  * So we get the file and return it.
+ * Silent is an optionnal parameter. If it is true, we do not increment the counter of the file.
  */
-function read(req, res)
+function read(req, res, silent)
 {
 	File.findOne({'shortName' : req.params.id}).exec(function(err, document)
 	{
@@ -23,7 +24,10 @@ function read(req, res)
 				return res.status(err.status).end();
 			}
 
-			document.incrementViewNumber();
+			if(!silent)
+			{
+				document.incrementViewNumber();
+			}
 
 			document.save(function(err, document)
 			{

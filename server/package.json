@@ -24,6 +24,7 @@
     "express": "^4.12.3",
     "mongoose": "^4.0.2",
     "multer": "^0.1.8",
+    "sync": "^0.2.5",
     "validator": "^3.39.0"
   }
 }

@@ -5,6 +5,7 @@ var upload = require('./modules/files/upload');
 
 /* User management */
 var register = require('./modules/users/register');
+var auth = require('./modules/users/auth');
 
 function router()
 {
@@ -13,7 +14,7 @@ function router()
 	});
 
 	ExpressApp.get('/silent/:id', function(req, res) {
-
+		read(req, res, true);
 	});
 
 	ExpressApp.post('/file/upload', function(req, res)	{
@@ -21,7 +22,7 @@ function router()
 	});
 
 	ExpressApp.post('/file/delete', function(req, res) {
-		delete(req, res);
+		//delete(req, res);
 	});
 
 	ExpressApp.post('/user/register', function(req, res) {
@@ -29,7 +30,7 @@ function router()
 	});
 
 	ExpressApp.post('/user/auth', function(req, res) {
-
+		auth(req, res);
 	});
 
 	ExpressApp.get('/user/info', function(req, res) {

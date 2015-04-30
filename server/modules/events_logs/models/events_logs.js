@@ -19,6 +19,8 @@ EventsLogs.statics.log = function(what, category)
 	event.category = category;
 
 	event.save();
+
+	return event.loggedAt;
 }
 
 var Logs = Mongoose.model('EventsLogs', EventsLogs);
@@ -50,41 +52,41 @@ function getEntry(message, content, additionalInformations)
 
 uShare.log = function log(entry, level)
 {
-	Logs.log(entry, level);
+	return Logs.log(entry, level);
 }
 
 uShare.logNotice = function logNotice(message, content, additionalInformations)
 {
 	var entry = getEntry(message, content, additionalInformations);
-	uShare.log(entry, 'notice');
+	return uShare.log(entry, 'notice');
 }
 
 uShare.logWarning = function logWarning(message, content, additionalInformations)
 {
 	var entry = getEntry(message, content, additionalInformations);
-	uShare.log(entry, 'warning');
+	return uShare.log(entry, 'warning');
 }
 
 uShare.logError = function logError(message, content, additionalInformations)
 {
 	var entry = getEntry(message, content, additionalInformations);
-	uShare.log(entry, 'error');
+	return uShare.log(entry, 'error');
 }
 
 uShare.notice = function notice(string)
 {
 	console.log(clc.green(string));
-	uShare.logNotice(string);
+	return uShare.logNotice(string);
 };
 
 uShare.error = function error(string)
 {
 	console.log(clc.red(string));
-	uShare.logError(string);
+	return uShare.logError(string);
 };
 
 uShare.warn = function warn(string)
 {
 	console.log(clc.yellow(string));
-	uShare.logWarning(string);
+	return uShare.logWarning(string);
 };

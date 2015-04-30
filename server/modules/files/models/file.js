@@ -31,7 +31,7 @@ var FileSchema = new Mongoose.Schema(
 FileSchema.methods.incrementViewNumber = function incrementViewNumber()
 {
 	++this.views;	
-}
+};
 
 module.exports = Mongoose.model('File', FileSchema);
 

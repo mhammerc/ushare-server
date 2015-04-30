@@ -16,8 +16,8 @@ function register(req, res)
 
 	if(!body.username || !body.email || !body.password || !body.source)
 	{
-		res.status(404).sendError('You must provide a username, an email, a password and finally'
-			+ 'the source name.')
+		res.status(404).sendError('You must provide a username, an email, a password and finally '
+			+ 'the source name.');
 
 		return;
 	}

@@ -16,7 +16,7 @@
 	  }
   },
 
-  "accountKeyOptions": {
+  "privateKeyOptions": {
     "length": 20,
     "pool": "azertyuiopqsdfghjklmwxcvbn123456789"
   }
