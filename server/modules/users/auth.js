@@ -4,7 +4,7 @@ let User = require('./models/user');
 let UserSecurity = require('./models/user_security');
 
 /* This controller generate and return a private key. */
-function auth(req, res)
+function http(req, res)
 {
 	let body = req.body;
 
@@ -51,4 +51,30 @@ function auth(req, res)
 	});
 }
 
-module.exports = auth;
+function ws(ws, msg)
+{
+	if(!msg.username || !msg.password || !msg.source)
+	{
+		ws.sendError('Your request isn\'t following the API.');
+		return;
+	}
+
+	User.getUser(msg.username, msg.password, function(err, user)
+	{
+		// TODO handle err
+
+		if(!user)
+		{
+			ws.sendError('Your credentials are not right.');
+			return;
+		}
+
+		ws.username = msg.username;
+		ws.userId = user._id;
+		ws.source = msg.source;
+
+		ws.sendSuccess('You\'re authenticated.');
+	});
+}
+
+module.exports = { http, ws };

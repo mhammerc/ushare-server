@@ -13,16 +13,39 @@ ExpressApp.use(function(req, res, next)
 
 	res.sendSuccess = function(message)
 	{
-		res.json({success:true, message:message});
+		res.json({success:true, message});
 		return res;
 	}
 
 	next();
 });
 
+/* Verify if it's the first start. If it is, make some adjustements. */
+function firstStart()
+{	
+	Stats.find().count(function(err, count)
+	{
+		// TODO - handle err argument
+
+		if(count !== 0)
+			return;
+
+		uShare.notice('First start, preparing the ground...');
+
+		let stat = new Stats();
+		stat.save(function(err, document)
+		{
+			uShare.notice('First start preparations done. Server ready to use! :-D');
+		});
+	});
+}
+
 /* Once we get connected to MongoDB, let's start the app */
 function start()
 {
+	// Verify if the server is making his first start
+	firstStart();
+
 	// Create routes
 	router();
 

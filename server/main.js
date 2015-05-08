@@ -2,7 +2,10 @@
 
 global.Mongoose = require('mongoose');
 global.ExpressApp = require('express')();
+global.ExpressWs = require('express-ws')(ExpressApp);
+
 global.Logs = require('./modules/events_logs/models/events_logs');
+global.Stats = require('./modules/stats/models/stats.js');
  
 /* --- */
 
