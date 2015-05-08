@@ -32,6 +32,16 @@ let UserSchema = new Mongoose.Schema(
 			type: Number,
 			default: 0,
 		},
+		numberOfViews:
+		{
+			type: Number,
+			default: 0,
+		},
+		accountType:
+		{
+			type: String,
+			default: 'regular',
+		},
 	},
 	createdAt:
 	{
@@ -122,6 +132,11 @@ UserSchema.methods.addEmailAddress = function addEmailAddress(email)
 UserSchema.methods.incrementNumberOfFiles = function incrementNumberOfFiles()
 {
 	++this.profile.numberOfFiles;
+}
+
+UserSchema.methods.incrementNumberOfViews = function incrementNumberOfViews()
+{
+	++this.profile.numberOfViews;
 }
 
 module.exports = Mongoose.model('users', UserSchema);

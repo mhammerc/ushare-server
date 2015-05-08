@@ -2,6 +2,7 @@
 
 let path = require('path');
 let File = require('./models/file');
+let User = require('./../users/models/user');
 
 /* This controller handle all request that match '/:id'
  * It's usually the route used to see a file
@@ -29,6 +30,15 @@ function read(req, res, silent)
 			if(!silent)
 			{
 				document.incrementViewNumber();
+				if(document.author)
+				{
+					User.findOne(document.author, function(err, document){
+						// TODO - handle err
+
+						document.incrementNumberOfViews();
+						document.save();
+					});
+				}
 			}
 
 			document.save(function(err, document)

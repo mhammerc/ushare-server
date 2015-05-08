@@ -11,6 +11,8 @@ let deleteFile = require('./modules/files/delete');
 /* User management */
 let registerUser = require('./modules/users/register');
 let authUser = require('./modules/users/auth');
+let userInfo = require('./modules/users/info');
+let userUploads = require('./modules/users/upload');
 
 function router()
 {
@@ -68,8 +70,10 @@ function websocket(ws, req)
 				authUser.ws(ws, msg);
 				break;
 			case '/user/info':
+				userInfo.ws(ws, msg);
 				break;
 			case '/user/uploads':
+				userUploads.ws(ws, msg);
 				break;
 		}
 	});
