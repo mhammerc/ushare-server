@@ -1,4 +1,6 @@
-var FileSchema = new Mongoose.Schema(
+'use strict';
+
+let FileSchema = new Mongoose.Schema(
 {
 	shortName: String,
 	fileName: String,
@@ -11,36 +13,35 @@ var FileSchema = new Mongoose.Schema(
 	password:
 	{
 		type: String,
-		default: ""
+		default: "",
 	},
 	views:
 	{
 		type: Number,
-		default: 0
+		default: 0,
 	},
 	receivedAt:
 	{
 		type: Date,
-		default: Date.now
+		default: Date.now,
 	},
 	lastViewAt: Date,
 	source: String,
 	author: 
 	{
 		type: Mongoose.Schema.ObjectId, // The _id of a user
-		default: null
+		default: null,
 	},
 	available: 
 	{
 		type: Boolean,
-		default: true
+		default: true,
 	}
 });
 
 FileSchema.methods.incrementViewNumber = function incrementViewNumber()
 {
-	++this.views;	
+	++this.views;
 };
 
 module.exports = Mongoose.model('File', FileSchema);
-

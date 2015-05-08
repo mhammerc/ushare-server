@@ -1,5 +1,7 @@
-var User = require('./models/user');
-var validator = require('validator');
+'use strict';
+
+let User = require('./models/user');
+let validator = require('validator');
 
 /* This controller register the user.
  * You must give in an x-www-form-urlencoded POST request the following datas :
@@ -10,7 +12,7 @@ var validator = require('validator');
  */
 function register(req, res)
 {
-	var body = req.body;
+	let body = req.body;
 
 	/* -- Verifying datas -- */
 
@@ -45,7 +47,7 @@ function register(req, res)
 
 	/* -- Verifying if a similar user is already existing -- */
 
-	var isUserAlreadyExisting = User.find().or(
+	let isUserAlreadyExisting = User.find().or(
 		[
 		{
 			username: body.username
@@ -59,7 +61,7 @@ function register(req, res)
 		if(err)
 		{
 			uShare.logError('Error on verifying existance of user in register.js.', err,
-			 				{ip: req.ip, body: body});
+			 				{ip: req.ip, body});
 
 			res.status(500).sendError('An error occurred. Please contact us '
 				+ `with this following key : ${Date.now()}`);
@@ -79,7 +81,7 @@ function register(req, res)
 
 		/* -- Well, everything is fine. Proceed to the registration. -- */
 
-		var user = new User();
+		let user = new User();
 
 		user.username = body.username;
 		user.setPassword(body.password);
@@ -89,7 +91,7 @@ function register(req, res)
 		{
 			if(err)
 			{
-				uShare.logError('Error on creating a new user.', err, {ip: req.ip,body: body});
+				uShare.logError('Error on creating a new user.', err, {ip: req.ip, body});
 
 				res.status(500).sendError('An error occurred. Please contact us with this following'
 				 	+ `key : ${Date.now()}`);
@@ -97,7 +99,7 @@ function register(req, res)
 				return;
 			}
 
-			uShare.logNotice('New user created.', null, {ip:req.ip,body:body});
+			uShare.logNotice('New user created.', null, {ip:req.ip, body});
 
 			res.sendSuccess('Successfully registered!');
 		}); /* user.save() */

@@ -1,19 +1,21 @@
-var clc = require('cli-color');
+'use strict';
 
-var EventsLogs = new Mongoose.Schema(
+let clc = require('cli-color');
+
+let EventsLogs = new Mongoose.Schema(
 {
 	loggedAt:
 	{
 		type: Date,
-		default: Date.now
+		default: Date.now,
 	},
 	what: Mongoose.Schema.Types.Mixed,
-	category: String
+	category: String,
 });
 
 EventsLogs.statics.log = function(what, category)
 {
-	var event = new this();
+	let event = new this();
 
 	event.what = what;
 	event.category = category;
@@ -23,14 +25,15 @@ EventsLogs.statics.log = function(what, category)
 	return event.loggedAt;
 }
 
-var Logs = Mongoose.model('EventsLogs', EventsLogs);
+let Logs = Mongoose.model('EventsLogs', EventsLogs);
+
 module.exports = Logs;
 
-uShare = {};
+global.uShare = {};
 
 function getEntry(message, content, additionalInformations)
 {
-	var entry = {};
+	let entry = {};
 
 	if(message)
 	{
@@ -57,19 +60,19 @@ uShare.log = function log(entry, level)
 
 uShare.logNotice = function logNotice(message, content, additionalInformations)
 {
-	var entry = getEntry(message, content, additionalInformations);
+	let entry = getEntry(message, content, additionalInformations);
 	return uShare.log(entry, 'notice');
 }
 
 uShare.logWarning = function logWarning(message, content, additionalInformations)
 {
-	var entry = getEntry(message, content, additionalInformations);
+	let entry = getEntry(message, content, additionalInformations);
 	return uShare.log(entry, 'warning');
 }
 
 uShare.logError = function logError(message, content, additionalInformations)
 {
-	var entry = getEntry(message, content, additionalInformations);
+	let entry = getEntry(message, content, additionalInformations);
 	return uShare.log(entry, 'error');
 }
 

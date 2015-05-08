@@ -1,5 +1,7 @@
-var File = require('./models/file');
-var UserSecurity = require('./../users/models/user_security');
+'use strict';
+
+let File = require('./models/file');
+let UserSecurity = require('./../users/models/user_security');
 
 /* This controller delete files if the user has authorization on it. */
 function deleteFile(req, res)
@@ -14,7 +16,7 @@ function deleteFile(req, res)
 	{
 		if(err)
 		{
-			var date = uShare.logError('Error on verifying identity.', err, {ip:req.ip, 
+			let date = uShare.logError('Error on verifying identity.', err, {ip:req.ip, 
 				body:req.body});
 			res.status(500).sendError('Internal error. Please warn us with the following key : '
 				+ date);
@@ -23,7 +25,7 @@ function deleteFile(req, res)
 
 		if(!user)
 		{
-			res.status(403).sendError('Your credentials are not rights.');
+			res.status(403).sendError('Your credentials are not right.');
 			return;
 		}
 
@@ -31,7 +33,7 @@ function deleteFile(req, res)
 		{
 			if(err)
 			{
-				var date = uShare.logError('Error on getting file from shortName in delete controller.',
+				let date = uShare.logError('Error on getting file from shortName in delete controller.',
 					err, {ip:req.ip, body:req.body});
 
 				res.status(500).sendError('Internal error. Please warn us with the following key : '
@@ -45,7 +47,7 @@ function deleteFile(req, res)
 				return;
 			}
 
-			if(!file.author.equals(user._id))
+			if(!file.author || !file.author.equals(user._id))
 			{
 				res.sendError('You\'ve no rights on this file.');
 				return;
@@ -56,7 +58,7 @@ function deleteFile(req, res)
 			{
 				if(err)
 				{
-					var date = uShare.logError('Can\'t delete files.', err, {ip:req.ip, body:req.body});
+					let date = uShare.logError('Can\'t delete files.', err, {ip:req.ip, body:req.body});
 					res.status(500).sendError('Internal error. Please warn us with the following key : '
 						+ date);
 					return;

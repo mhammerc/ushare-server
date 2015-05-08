@@ -1,10 +1,12 @@
-var User = require('./models/user');
-var UserSecurity = require('./models/user_security');
+'use strict';
+
+let User = require('./models/user');
+let UserSecurity = require('./models/user_security');
 
 /* This controller generate and return a private key. */
 function auth(req, res)
 {
-	var body = req.body;
+	let body = req.body;
 
 	if(!body.username || !body.password || !body.source)
 	{
@@ -16,7 +18,7 @@ function auth(req, res)
 	{
 		if(err)
 		{
-			uShare.logError('Error on creating an auth', err, {ip:req.ip, body:body});
+			uShare.logError('Error on creating an auth', err, {ip:req.ip, body});
 			return;
 		}
 
@@ -26,8 +28,8 @@ function auth(req, res)
 			return;
 		}
 
-		var auth = new UserSecurity();
-		auth.generateNewPrivateKey();
+		let auth = new UserSecurity();
+		auth.privateKey = auth.generateNewPrivateKey();
 		auth.accountKey = user._id;
 		auth.ipv4 = req.ip;
 		auth.source = body.source;
@@ -36,8 +38,7 @@ function auth(req, res)
 		{
 			if(err)
 			{
-				var date = uShare.logError('Error on saving new auth', err, {body:body, ip:req.ip, 
-					auth:auth});
+				let date = uShare.logError('Error on saving new auth', err, {body, auth, ip:req.ip});
 				res.sendError(`Internal error. Please warn us with the following key : ${date}`)
 				return;
 			}

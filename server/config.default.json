@@ -1,24 +1,33 @@
 {
-  "mongoUrl": "mongodb://localhost/ushare",
-  "fileDest": "./files/",
-  "baseUrl": "http://localhost/",
-  "basePort": 3000,
-
-  "fileLimits": {
-    "fileSize": 50000000,
-    "files": 1
+  "app": {
+    "url": "http://localhost/",
+    "port": 3000
   },
 
-  "newFiles" : {
+  "mongo": {
+    "url": "mongodb://localhost/ushare"
+  },
+
+  "files": {
+    "destination": "./files/",
+
+    "limits": {
+      "fileSize": 50000000,
+      "files": 1
+    }
+  },
+
+  "newFiles": {
 	  "shortName": {
 	    "length": 4,
 	    "pool": "azertyuiopqsdfghjklmwxcvbn123456789"
 	  }
   },
 
-  "privateKeyOptions": {
-    "length": 20,
-    "pool": "azertyuiopqsdfghjklmwxcvbn123456789"
+  "user": {
+    "privateKey": {
+      "length": 20,
+      "pool": "azertyuiopqsdfghjklmwxcvbn123456789"
+    }
   }
-
 }

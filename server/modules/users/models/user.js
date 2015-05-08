@@ -1,13 +1,15 @@
-var bcrypt = require('bcrypt');
+'use strict';
 
-var LoginTokensSchema = new Mongoose.Schema({
+let bcrypt = require('bcrypt');
+
+let LoginTokensSchema = new Mongoose.Schema({
 	when: Date,
-	hashedToken: String
+	hashedToken: String,
 });
 
-var EmailSchema = new Mongoose.Schema({
+let EmailSchema = new Mongoose.Schema({
 	address: String,
-	verified: Boolean
+	verified: Boolean,
 });
 
 /* This function encrypt the password through the Meteor way.
@@ -19,7 +21,7 @@ function encryptPassword(password)
 	return bcrypt.hashSync(password, 10);
 }
 
-var UserSchema = new Mongoose.Schema(
+let UserSchema = new Mongoose.Schema(
 {
 	username: String,
 	mainEmailAddress: String,
@@ -28,13 +30,13 @@ var UserSchema = new Mongoose.Schema(
 		numberOfFiles: 
 		{
 			type: Number,
-			default: 0
-		}
+			default: 0,
+		},
 	},
 	createdAt:
 	{
 		type: Date,
-		default: Date.now
+		default: Date.now,
 	},
 	services:
 	{
@@ -43,15 +45,15 @@ var UserSchema = new Mongoose.Schema(
 			bcrypt: 
 			{
 				type: String,
-				set: encryptPassword
-			}
+				set: encryptPassword,
+			},
 		},
 		resume: 
 		{
-			loginTokens: [LoginTokensSchema]
-		}
+			loginTokens: [LoginTokensSchema],
+		},
 	},
-	emails: [EmailSchema]
+	emails: [EmailSchema],
 });
 
 /* This function try to get an user with the given informations.
@@ -64,7 +66,7 @@ var UserSchema = new Mongoose.Schema(
  */
 UserSchema.statics.getUser = function getUser(username, password, cb)
 {
-	this.findOne({username:username}, function(err, document)
+	this.findOne({username}, function(err, document)
 	{
 		if(err)
 		{
@@ -108,7 +110,7 @@ UserSchema.methods.addEmailAddress = function addEmailAddress(email)
 	this.emails.push(
 	{
 		address: email, 
-		verified: false
+		verified: false,
 	});
 
 	if(!this.mainEmailAddress)

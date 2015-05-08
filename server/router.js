@@ -1,11 +1,13 @@
+'use strict';
+
 /* Files management */
-var readFile = require('./modules/files/read');
-var uploadFile = require('./modules/files/upload');
-var deleteFile = require('./modules/files/delete');
+let readFile = require('./modules/files/read');
+let uploadFile = require('./modules/files/upload');
+let deleteFile = require('./modules/files/delete');
 
 /* User management */
-var registerUser = require('./modules/users/register');
-var authUser = require('./modules/users/auth');
+let registerUser = require('./modules/users/register');
+let authUser = require('./modules/users/auth');
 
 function router()
 {

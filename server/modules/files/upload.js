@@ -1,15 +1,17 @@
-var File = require('./models/file');
-var UserSecurity = require('./../users/models/user_security');
-var chance = require('chance');
+'use strict';
+
+let File = require('./models/file');
+let UserSecurity = require('./../users/models/user_security');
+let chance = require('chance');
 
 /* This function call a callback with a randomly generated shortName with the garantee that
  * this shortName is not already used.
  */
 function getRandomShortName(callback)
 {
-	var shortName = chance(Date.now()).string(Config.newFiles.shortName);
+	let shortName = chance(Date.now()).string(Config.newFiles.shortName);
 
-	File.find({shortName:shortName}, function(err, document)
+	File.find({shortName}, function(err, document)
 	{
 		if(err)
 		{
@@ -49,8 +51,8 @@ function upload(req, res)
 			res.status(500).sendError('An error occurred.');
 		}
 
-		var fileData = new File(); // The file inside MongoDB
-		var file = req.files.file; // The file by itself
+		let fileData = new File(); // The file inside MongoDB
+		let file = req.files.file; // The file by itself
 
 		fileData.shortName = shortName;
 
@@ -67,7 +69,7 @@ function upload(req, res)
 		{
 			if(err)
 			{
-				var date = uShare.logError('error on verifying identity on an upload.');
+				let date = uShare.logError('error on verifying identity on an upload.');
 				res.status(500).sendError('Internal error. Please warn us with the following key : '
 					+ date);
 				return;
@@ -96,7 +98,7 @@ function upload(req, res)
 													+ `key: ${Date.now()}`);
 				}
 
-				var date = new Date(Date.now());
+				let date = new Date(Date.now());
 
 				/* Log something like this : 
 				 * 'File 'FileName.exe' received at 3/27/2015 23:47:1:695' 

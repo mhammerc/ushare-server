@@ -1,5 +1,8 @@
-var router = require('./router');
+'use strict';
 
+let router = require('./router');
+
+/* Just a little middleware to make responses easiers */
 ExpressApp.use(function(req, res, next)
 {
 	res.sendError = function(error)
@@ -23,11 +26,11 @@ function start()
 	// Create routes
 	router();
 
-	ExpressApp.listen(Config.basePort, function(err)
+	ExpressApp.listen(Config.app.port, function(err)
 	{
 		if(!err)
 		{
-			uShare.notice(`App started on port ${Config.basePort}`);
+			uShare.notice(`App started on port ${Config.app.port}`);
 		}
 	});
 }

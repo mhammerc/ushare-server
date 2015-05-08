@@ -1,10 +1,12 @@
-Mongoose = require('mongoose');
-ExpressApp = require('express')();
-Logs = require('./modules/events_logs/models/events_logs');
+'use strict';
+
+global.Mongoose = require('mongoose');
+global.ExpressApp = require('express')();
+global.Logs = require('./modules/events_logs/models/events_logs');
  
 /* --- */
 
-Config = null;
+global.Config = null;
 
 /* We get configurations from config.json or config.default.json */
 try
@@ -30,38 +32,39 @@ catch(e)
 
 /* --- */
 
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 ExpressApp.use(bodyParser.urlencoded(
 {
 	extended: true
 }));
 
-var multer = require('multer');
+let multer = require('multer');
 ExpressApp.use(multer(
 {
-	dest: './files',
-	limits: Config.fileLimits,
-	rename: function(fieldname, filename, req, res)
+	dest: Config.files.destination,
+	limits: Config.files.limits,
+
+	rename: function rename(fieldname, filename, req, res)
 	{
 		return filename + '_' + Date.now()
-	}
+	},
 }));
 
 /* --- */
 
-var app = require('./app');
+let app = require('./app');
 
 uShare.notice('Starting...');
 
-Mongoose.connect(Config.mongoUrl);
+Mongoose.connect(Config.mongo.url);
 
-var db = Mongoose.connection;
+let db = Mongoose.connection;
 
 db.on('error', console.error.bind(console, 'Connection error:'));
 
 db.once('open', function(callback)
 {
-	uShare.notice(`Connected to MongoDB at ${Config.mongoUrl}`);
+	uShare.notice(`Connected to MongoDB at ${Config.mongo.url}`);
 
 	app();
 });
