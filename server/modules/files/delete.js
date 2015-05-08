@@ -14,12 +14,9 @@ function deleteFile(req, res)
 
 	UserSecurity.verifyIdentity(req.body.accountkey, req.body.privatekey, function(err, user)
 	{
-		if(err)
+		if(handleError(err))
 		{
-			let date = uShare.logError('Error on verifying identity.', err, {ip:req.ip, 
-				body:req.body});
-			res.status(500).sendError('Internal error. Please warn us with the following key : '
-				+ date);
+			res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
 			return;
 		}
 
@@ -31,13 +28,9 @@ function deleteFile(req, res)
 
 		File.findOne({shortName:req.body.shortname, available:true}, function(err, file)
 		{
-			if(err)
+			if(handleError(err))
 			{
-				let date = uShare.logError('Error on getting file from shortName in delete controller.',
-					err, {ip:req.ip, body:req.body});
-
-				res.status(500).sendError('Internal error. Please warn us with the following key : '
-					+ date);
+				res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
 				return;
 			}
 
@@ -56,15 +49,13 @@ function deleteFile(req, res)
 			file.available = false;
 			file.save(function(err)
 			{
-				if(err)
+				if(handleError(err))
 				{
-					let date = uShare.logError('Can\'t delete files.', err, {ip:req.ip, body:req.body});
-					res.status(500).sendError('Internal error. Please warn us with the following key : '
-						+ date);
+					res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
 					return;
 				}
 
-				res.json({status:'success'});
+				res.sendSuccess('');;
 				return;
 			});
 		});

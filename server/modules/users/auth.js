@@ -16,9 +16,9 @@ function http(req, res)
 
 	User.getUser(body.username, body.password, function(err, user)
 	{
-		if(err)
+		if(handleError(err))
 		{
-			uShare.logError('Error on creating an auth', err, {ip:req.ip, body});
+			res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
 			return;
 		}
 
@@ -36,10 +36,9 @@ function http(req, res)
 
 		auth.save(function(err)
 		{
-			if(err)
+			if(handleError(err))
 			{
-				let date = uShare.logError('Error on saving new auth', err, {body, auth, ip:req.ip});
-				res.sendError(`Internal error. Please warn us with the following key : ${date}`)
+				res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
 				return;
 			}
 
@@ -61,7 +60,11 @@ function ws(ws, msg)
 
 	User.getUser(msg.username, msg.password, function(err, user)
 	{
-		// TODO handle err
+		if(handleError(err))
+		{
+			ws.sendError('Internal error.');
+			return;
+		}
 
 		if(!user)
 		{

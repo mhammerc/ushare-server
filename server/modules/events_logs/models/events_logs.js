@@ -93,3 +93,16 @@ uShare.warn = function warn(string)
 	console.log(clc.yellow(string));
 	return uShare.logWarning(string);
 };
+
+
+/* On callbacks with always have an err argument.
+ * Pass the err argument to it, say what you are doing and eventually give more infos.
+ * Then verify if the handle error return true. If it is, there is an error.
+ */	
+global.handleError = function handleError(err, infos)
+{
+	if(!err) return false;
+
+	err = uShare.logError(null, err, infos);
+	return err;
+}

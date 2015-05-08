@@ -16,7 +16,12 @@ function ws(ws, req)
 	}
 
 	Files.find({author:ws.userId, available:true}, function(err, documents){
-		// TODO handle err
+		
+		if(handleError(err))
+		{
+			res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+			return;
+		}
 
 		if(!documents)
 		{

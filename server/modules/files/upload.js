@@ -13,10 +13,10 @@ function getRandomShortName(callback)
 
 	File.find({shortName}, function(err, document)
 	{
-		if(err)
+		if(handleError(err))
 		{
-			uShare.logError('Error on getting new shortName', err);
 			callback(false);
+			return;
 		}
 
 		if(document.length !== 0)
@@ -67,11 +67,9 @@ function upload(req, res)
 
 		UserSecurity.verifyIdentity(req.body.accountkey, req.body.privatekey, function(err, author)
 		{
-			if(err)
+			if(handleError(err))
 			{
-				let date = uShare.logError('error on verifying identity on an upload.');
-				res.status(500).sendError('Internal error. Please warn us with the following key : '
-					+ date);
+				res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
 				return;
 			}
 
@@ -86,16 +84,10 @@ function upload(req, res)
 
 			fileData.save(function (err, fileData)
 			{
-				if(err)
+				if(handleError(err))
 				{
-					uShare.logError('Error on saving a file inside MongoDB.', err, {
-						ip: req.ip, 
-						body: req.body,
-						file: file
-					});
-
-					return res.status(500).sendError('Internal error, please warn us with the following '
-													+ `key: ${Date.now()}`);
+					res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+					return;
 				}
 
 				let date = new Date(Date.now());

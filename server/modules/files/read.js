@@ -11,11 +11,19 @@ let User = require('./../users/models/user');
  */
 function read(req, res, silent)
 {
+	// Find the file
 	File.findOne({'shortName': req.params.id, available: true}, function(err, document)
 	{
 		if(err || !document)
 		{
-			return res.status(404).send('Could not find your file.');
+			res.status(404).send('Could not find your file.');
+
+			if(handleError(err))
+			{
+				res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+			}
+
+			return;
 		}
 
 		let filePath = path.resolve(`${Config.files.destination}${document.fileName}`);
@@ -27,27 +35,33 @@ function read(req, res, silent)
 				return res.status(err.status).end();
 			}
 
+			// Increment views counters
 			if(!silent)
 			{
 				document.incrementViewNumber();
+				
 				if(document.author)
 				{
 					User.findOne(document.author, function(err, document){
-						// TODO - handle err
+						
+						if(handleError(err))
+						{
+							res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+							return;
+						}
 
 						document.incrementNumberOfViews();
-						document.save();
+						document.save(function(err, document)
+						{
+							if(handleError(err))
+							{
+								res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+								return;
+							}
+						});
 					});
 				}
 			}
-
-			document.save(function(err, document)
-			{
-				if(err)
-				{
-					return uShare.error(err);
-				}
-			});
 		});
 	});
 }

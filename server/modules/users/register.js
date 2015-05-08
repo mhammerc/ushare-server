@@ -58,13 +58,10 @@ function register(req, res)
 
 	isUserAlreadyExisting.exec(function(err, doc)
 	{
-		if(err)
+		if(handleError(err))
 		{
-			uShare.logError('Error on verifying existance of user in register.js.', err,
-			 				{ip: req.ip, body});
-
 			res.status(500).sendError('An error occurred. Please contact us '
-				+ `with this following key : ${Date.now()}`);
+				+ `with this following key : ${err}`);
 
 			return;
 		}
@@ -89,10 +86,8 @@ function register(req, res)
 
 		user.save(function(err, document)
 		{
-			if(err)
+			if(handleError(err))
 			{
-				uShare.logError('Error on creating a new user.', err, {ip: req.ip, body});
-
 				res.status(500).sendError('An error occurred. Please contact us with this following'
 				 	+ `key : ${Date.now()}`);
 
