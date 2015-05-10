@@ -43,11 +43,11 @@ function router()
 	});
 
 	ExpressApp.get('/user/info', function(req, res) {
-
+		userInfo.http(req, res);
 	});
 
 	ExpressApp.get('/user/uploads', function(req, res) {
-
+		userUploads.http(req, res);
 	});
 
 	ExpressApp.get('/', function(req, res) {
