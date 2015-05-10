@@ -2,6 +2,7 @@
 
 let Files = require('./../files/models/file');
 let UsersSecurity = require('./models/user_security');
+let validator = require('validator');
 
 function http(req, res)
 {
@@ -10,6 +11,12 @@ function http(req, res)
 	if(!body.accountkey || !body.privatekey || !body.limit || !body.source)
 	{
 		res.status(404).sendError('You must provide an accountkey, privatekey, limit and the source.');
+		return;
+	}
+
+	if(body.limit !== "number")
+	{
+		res.status(404).sendError('limit must be a number.');
 		return;
 	}
 
@@ -69,15 +76,26 @@ function http(req, res)
 	});
 }
 
-function ws(ws, req)
+function ws(ws, msg)
 {
 	if(!ws.userId)
 	{
-		ws.sendError('You must be logged before asking anything');
+		ws.sendError('You must be logged before asking anything.');
 		return;
 	}
 
-	Files.find({author:ws.userId, available:true}, function(err, documents) {
+	if(!msg.limit || typeof msg.limit !== 'number')
+	{
+		ws.sendError('You must provide a limit.');
+		return;
+	}
+
+	let query = Files.find({ author: ws.userId, available: true });
+	query.sort({ receivedAt: -1 });
+	query.select('shortName originalFileName size mimetype views.notSilent receivedAt password');
+	query.limit(msg.limit <= 500 ? msg.limit : 500);
+
+	query.exec(function(err, documents) {
 		
 		if(handleError(err))
 		{
@@ -102,7 +120,7 @@ function ws(ws, req)
 			file.name = document.originalFileName;
 			file.size = document.size;
 			file.mimetype = document.mimetype;
-			file.views = document.views;
+			file.views = document.views.notSilent;
 			file.date = document.receivedAt;
 			file.password = document.password;
 
