@@ -46,9 +46,7 @@ function http(req, res)
 			}
 
 			const response = {};
-
-			response.nOfFiles = documents.length;
-
+			response.numberOfFiles = documents.length;
 			response.files = [];
 
 			documents.forEach(function(element) {
@@ -94,13 +92,13 @@ function ws(ws, req)
 		}
 
 		const response = {};
-		response.nOfFiles = documents.length;
+		response.numberOfFiles = documents.length;
 		response.files = [];
 
-		documents.forEach(function(document, index)
+		documents.forEach(function(document)
 		{
 			const file = {};
-			file.uid = document.shortName;
+			file.shortname = document.shortName;
 			file.name = document.originalFileName;
 			file.size = document.size;
 			file.mimetype = document.mimetype;

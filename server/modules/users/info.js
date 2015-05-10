@@ -32,8 +32,8 @@ function http(req, res)
 		response.username = user.username;
 		response.email = user.emails[0].address;
 		response.accountType = user.profile.accountType;
-		response.nOfFilesSaved = user.profile.numberOfFiles;
-		response.nOfViews = user.profile.numberOfViews;
+		response.numberOfFilesSaved = user.profile.numberOfFiles;
+		response.numberOfViews = user.profile.numberOfViews;
 
 		res.json(response);
 	});
@@ -66,8 +66,8 @@ function ws(ws, msg)
 		response.username = document.username;
 		response.email = document.emails[0].address;
 		response.accountType = document.profile.accountType;
-		response.nOfFilesSaved = document.profile.numberOfFiles;
-		response.nOfViews = document.profile.numberOfViews;
+		response.numberOfFilesSaved = document.profile.numberOfFiles;
+		response.numberOfViews = document.profile.numberOfViews;
 
 		ws.json(response);
 	});
