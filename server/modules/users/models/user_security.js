@@ -9,7 +9,7 @@ let validator = require('validator');
  */
 let UserSecuritySchema = new Mongoose.Schema(
 {
-	accountKey: Mongoose.Schema.ObjectId, // The _id of a user
+	accountKey: String, // The _id of a user
 	privateKey: String,
 	source: String,
 	ipv4: String,
@@ -39,12 +39,6 @@ let UserSecuritySchema = new Mongoose.Schema(
 UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, privateKey, cb)
 {
 	if(!userId || !privateKey)
-	{
-		cb(null, false);
-		return;
-	}
-
-	if(!validator.isMongoId(userId))
 	{
 		cb(null, false);
 		return;

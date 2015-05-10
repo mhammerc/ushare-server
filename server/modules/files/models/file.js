@@ -37,7 +37,7 @@ let FileSchema = new Mongoose.Schema(
 	source: String,
 	author: 
 	{
-		type: Mongoose.Schema.ObjectId, // The _id of a user
+		type: String, // The _id of a user
 		default: null,
 	},
 	available: 

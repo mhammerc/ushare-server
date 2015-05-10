@@ -1,6 +1,7 @@
 'use strict';
 
 let bcrypt = require('bcrypt');
+let chance = require('chance');
 
 let LoginTokensSchema = new Mongoose.Schema({
 	when: Date,
@@ -13,7 +14,7 @@ let EmailSchema = new Mongoose.Schema({
 });
 
 /* This function encrypt the password through the Meteor way.
- * BUT it's REALLY important : you MUST pass the password as SHA512.
+ * BUT it's REALLY important : you MUST pass the password as SHA-256.
  * Note that the accountKey is the _id of the user but shhhhht.
  */
 function encryptPassword(password)
@@ -23,6 +24,11 @@ function encryptPassword(password)
 
 let UserSchema = new Mongoose.Schema(
 {
+	_id:
+	{
+		type: String,
+		default: chance(Date.now()).string(Config.mongo._id)
+	},
 	username: String,
 	mainEmailAddress: String,
 	profile: 
@@ -69,8 +75,8 @@ let UserSchema = new Mongoose.Schema(
 /* This function try to get an user with the given informations.
  * The function take 3 arguments :
  *   - username: username of the user
- *   - password: password of the user as SHA512 (by default the client already transmit it as 
- *		SHA512)
+ *   - password: password of the user as SHA-256 (by default the client already transmit it as 
+ *		SHA-256)
  *   - cb: callback with this definition callback(err, user). user is the researched user if it
  *			exist.
  */

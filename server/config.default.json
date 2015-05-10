@@ -5,7 +5,11 @@
   },
 
   "mongo": {
-    "url": "mongodb://localhost/ushare"
+    "url": "mongodb://localhost/ushare",
+    "_id": {
+      "length": 17,
+      "pool": "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789"
+    }
   },
 
   "files": {

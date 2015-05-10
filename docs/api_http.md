@@ -28,8 +28,8 @@ revoke your privatekey when you stop to use it.
 
 That's sound good, but it remain one problem. When we get our *privatekey*, we need to send a
 *username* and a *password* to proof our identity the first time ! The password is still sent.
-That's why you need to sent it has SHA-512. That's easy : take the original password, encrypt it
-as SHA-512 then send it to the auth API. If your credentials are right, you receive your keys,
+That's why you need to sent it has SHA-256. That's easy : take the original password, encrypt it
+as SHA-256 then send it to the auth API. If your credentials are right, you receive your keys,
 save them and you never need to resend the password !
 
 Note that is only right for HTTP API. The WebSockets API work differently.
@@ -83,7 +83,7 @@ This route permit you to register inside uShare. Note that you can register from
 *Request :*
   - username : your username
   - email : your email
-  - password : your password encrypted as SHA-512
+  - password : your password encrypted as SHA-256
   - source
 
 #### POST /user/auth
@@ -92,7 +92,7 @@ This route permit you to get your accountkey and a new privatekey.
 
 *Request :*
   - username
-  - password : your password encrypted as SHA-512
+  - password : your password encrypted as SHA-256
   - source
 
 *Response :*

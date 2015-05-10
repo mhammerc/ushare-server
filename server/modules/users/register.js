@@ -8,7 +8,7 @@ let Stats = require('./../stats/models/stats');
  * You must give in an x-www-form-urlencoded POST request the following datas :
  *   - username : String who contain your username.
  *   - email : your email
- *   - password : your password as sha-512
+ *   - password : your password as sha-256
  *   - source : the codename of your app
  */
 function register(req, res)
@@ -42,7 +42,7 @@ function register(req, res)
 	/*
 	if(!validator.isLength(body.password, 128, 128))
 	{
-		res.status(404).sendError('Your password must be encrypted has SHA512 and sended as Hexa.');
+		res.status(404).sendError('Your password must be encrypted has SHA-256 and sended as Hexa.');
 	}
 	*/
 
