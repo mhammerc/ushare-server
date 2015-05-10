@@ -2,7 +2,6 @@
 
 let Files = require('./../files/models/file');
 let UsersSecurity = require('./models/user_security');
-let validator = require('validator');
 
 function http(req, res)
 {
