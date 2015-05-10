@@ -6,10 +6,25 @@
 let StatsSchema = new Mongoose.Schema(
 {
 	users: {
-		total: 
-		{
-			type: Number,
-			default: 0,
+		accounts: {
+			total: {
+				type: Number,
+				default: 0,
+			},
+		},
+		auths: {
+			activated: {
+				type: Number,
+				default: 0,
+			},
+			disabled: {
+				type: Number,
+				default: 0,
+			},
+			total: {
+				type: Number,
+				default: 0,
+			},
 		},
 	},
 	files: {

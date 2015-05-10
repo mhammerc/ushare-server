@@ -17,8 +17,16 @@ let FileSchema = new Mongoose.Schema(
 	},
 	views:
 	{
-		type: Number,
-		default: 0,
+		silent:
+		{
+			type: Number,
+			default: 0,
+		},
+		notSilent:
+		{
+			type: Number,
+			default: 0,
+		},
 	},
 	receivedAt:
 	{
@@ -41,8 +49,13 @@ let FileSchema = new Mongoose.Schema(
 
 FileSchema.methods.incrementViewNumber = function incrementViewNumber()
 {
-	++this.views;
+	++this.views.notSilent;
 	this.lastViewAt = Date.now();
 };
+
+FileSchema.methods.incrementSilentViewNumber = function incrementSilentViewNumber()
+{
+	++this.views.silent;
+}
 
 module.exports = Mongoose.model('File', FileSchema);

@@ -2,6 +2,7 @@
 
 let User = require('./models/user');
 let validator = require('validator');
+let Stats = require('./../stats/models/stats');
 
 /* This controller register the user.
  * You must give in an x-www-form-urlencoded POST request the following datas :
@@ -97,6 +98,14 @@ function register(req, res)
 			uShare.logNotice('New user created.', null, {ip:req.ip, body});
 
 			res.sendSuccess('Successfully registered!');
+
+			Stats.findOne(function(err, document) {
+				if(handleError(err)) return;
+
+				++document.users.accounts.total;
+				document.save(function(err){ handleError(err); });
+			});
+
 		}); /* user.save() */
 	}); /* isUserAlreadyExisting.exec() */
 } /* Controller register() */

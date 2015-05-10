@@ -12,7 +12,7 @@ let deleteFile = require('./modules/files/delete');
 let registerUser = require('./modules/users/register');
 let authUser = require('./modules/users/auth');
 let userInfo = require('./modules/users/info');
-let userUploads = require('./modules/users/upload');
+let userUploads = require('./modules/users/upload_list');
 
 function router()
 {

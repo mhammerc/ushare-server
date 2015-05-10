@@ -2,6 +2,7 @@
 
 let User = require('./models/user');
 let UserSecurity = require('./models/user_security');
+let Stats = require('./../stats/models/stats');
 
 /* This controller generate and return a private key. */
 function http(req, res)
@@ -44,8 +45,17 @@ function http(req, res)
 
 			uShare.logNotice('New private key generated.', {}, {ip:req.ip, user:user._id, 
 				privateKey: auth.privateKey});
+
 			res.json({accountKey:user._id, privateKey:auth.privateKey});
-			return;
+
+			Stats.findOne(function(err, document) {
+				if(handleError(err)) return;
+
+				++document.users.auths.activated;
+				++document.users.auths.total;
+
+				document.save(function(err){ handleError(err); });
+			});
 		});
 	});
 }

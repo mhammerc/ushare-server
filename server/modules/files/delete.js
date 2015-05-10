@@ -2,6 +2,7 @@
 
 let File = require('./models/file');
 let UserSecurity = require('./../users/models/user_security');
+let Stats = require('./../stats/models/stats');
 
 /* This controller delete files if the user has authorization on it. */
 function deleteFile(req, res)
@@ -55,8 +56,15 @@ function deleteFile(req, res)
 					return;
 				}
 
-				res.sendSuccess('');;
-				return;
+				res.sendSuccess('File successfully deleted.');
+				
+				Stats.findOne(function(err, document) {
+					if(handleError(err)) return;
+
+					++document.files.notAvailable;
+					--document.files.available;
+					document.save(function(err){ handleError(err); });
+				});
 			});
 		});
 	});

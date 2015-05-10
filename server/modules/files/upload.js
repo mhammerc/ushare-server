@@ -2,6 +2,7 @@
 
 let File = require('./models/file');
 let UserSecurity = require('./../users/models/user_security');
+let Stats = require('./../stats/models/stats');
 let chance = require('chance');
 
 /* This function call a callback with a randomly generated shortName with the garantee that
@@ -101,6 +102,15 @@ function upload(req, res)
 					+ `${date.getMilliseconds()} (${fileData._id})`);
 
 				res.status(200).send(fileData.shortName);
+
+				Stats.findOne(function(err, document) {
+					if(handleError(err)) return;
+
+					++document.files.available;
+					++document.files.total;
+					document.save(function(err){ handleError(err); });
+				});
+
 			}); /* fileData.save() */
 		}); /* UserSecurity.verifyIdentity */
 	}); /* getRandomShortName() */
