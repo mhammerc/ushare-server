@@ -51,7 +51,7 @@ Just replace `Boolean` by *true* or *false* and `String` by a human-readable mes
 
 #### GET /:id
 
-Search for a file :id then return it to the client. Note that :id is the shortname of a file.
+Search for a file `:id` then return it to the client. Note that `:id` is the shortname of a file.
 
 #### POST /file/upload
 
@@ -60,8 +60,8 @@ This route permit you to save a file inside uShare.
 accountkey and privatekey are optionnal. If you don't provide them, your file will be anonymous.
 
 *Request :*
-  - accountkey [optionnal] : your accountkey
-  - privatekey [optionnal] : your privatekey
+  - accountkey *[optionnal]* : your accountkey
+  - privatekey *[optionnal]* : your privatekey
   - file : the file by itself
   - source : the name of the app who is sending the request
 
@@ -72,7 +72,7 @@ This route permit you to delete a file previously uploaded inside uShare.
 *Request :*
   - accountkey
   - privatekey
-  - shortname : The shortname of the file. Same as :id in the first route (ex: http://ushare.so/xyz 
+  - shortname : The shortname of the file. Same as `:id` in the first route (ex: http://ushare.so/xyz 
   : here, the short name is xyz).
   - source
 
@@ -96,12 +96,15 @@ This route permit you to get your accountkey and a new privatekey.
   - source
 
 *Response :*
-  - success : boolean (true/false)
-  - accountkey
-  - privatekey : your newly generated privatekey
+
+    {
+    	"success": Boolean,
+    	"accountkey": String,
+    	"privatekey": String
+    }
 
 #### GET /user/info
-*available in websockets API*
+*Available in websockets API*
 
 This route permit you to get informations about the user provided by accountkey and privatekey.
 
@@ -123,7 +126,7 @@ This route permit you to get informations about the user provided by accountkey 
 Fields are self-explained. Just note that accountType will be *regular*, *premium* or *vip*.
 
 #### GET /user/uploads
-*available in websockets API*
+*Available in websockets API*
 
 This route permit you to get a detailed list of files sended by a the user provided by accountkey
 and privatekey. More recent file is first in the array. The maximum limit is 500.
