@@ -16,13 +16,15 @@ let EventsLogs = new Mongoose.Schema(
 EventsLogs.statics.log = function(what, category)
 {
 	let event = new this();
+	let date = Date.now();
 
 	event.what = what;
 	event.category = category;
+	event.loggedAt = date;
 
 	event.save();
 
-	return event.loggedAt;
+	return date;
 }
 
 let Logs = Mongoose.model('EventsLogs', EventsLogs);

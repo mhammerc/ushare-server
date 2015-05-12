@@ -13,7 +13,7 @@ function http(req, res)
 		return;
 	}
 
-	if(body.limit !== "number")
+	if(typeof body.limit !== "number")
 	{
 		res.status(404).sendError('limit must be a number.');
 		return;

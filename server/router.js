@@ -11,6 +11,7 @@ let deleteFile = require('./modules/files/delete');
 /* User management */
 let registerUser = require('./modules/users/register');
 let authUser = require('./modules/users/auth');
+let revokeAuthUser = require('./modules/users/auth_revoke');
 let userInfo = require('./modules/users/info');
 let userUploads = require('./modules/users/upload_list');
 
@@ -40,6 +41,10 @@ function router()
 
 	ExpressApp.post('/user/auth', function(req, res) {
 		authUser.http(req, res);
+	});
+
+	ExpressApp.post('/user/revoke/auth', function(req, res) {
+		revokeAuthUser.http(req, res);
 	});
 
 	ExpressApp.get('/user/info', function(req, res) {

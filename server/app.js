@@ -7,13 +7,19 @@ ExpressApp.use(function(req, res, next)
 {
 	res.sendError = function(error)
 	{
-		res.json({success:false, message:error});
+		res.json({ success:false, message:error });
 		return res;
 	}
 
 	res.sendSuccess = function(message)
 	{
-		res.json({success:true, message});
+		res.json({ success:true, message });
+		return res;
+	}
+
+	res.serverError = function(date)
+	{
+		res.status(500).sendError('Internal error, please warn us with the following key : ' + date);
 		return res;
 	}
 

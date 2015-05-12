@@ -103,6 +103,15 @@ This route permit you to get your accountkey and a new privatekey.
     	"privatekey": String
     }
 
+#### POST /user/revoke/auth
+
+This route permit you to revoke privatekey previously generated.
+
+*Request :*
+  - accountkey
+  - privatekey
+  - source
+
 #### GET /user/info
 *Available in websockets API*
 
