@@ -46,7 +46,7 @@ function http(req, res)
 			uShare.logNotice('New private key generated.', {}, {ip:req.ip, user:user._id, 
 				privateKey: auth.privateKey});
 
-			res.json({accountKey:user._id, privateKey:auth.privateKey});
+			res.json({ success: true, accountkey: user._id, privatekey: auth.privateKey, });
 
 			Stats.findOne(function(err, document) {
 				if(handleError(err)) return;
