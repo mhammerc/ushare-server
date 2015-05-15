@@ -101,7 +101,7 @@ function upload(req, res)
 					+ `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:` 
 					+ `${date.getMilliseconds()} (${fileData._id})`);
 
-				res.status(200).send(fileData.shortName);
+				res.status(200).send(Config.app.url + fileData.shortName);
 
 				Stats.findOne(function(err, document) {
 					if(handleError(err)) return;

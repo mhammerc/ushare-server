@@ -33,7 +33,11 @@ let FileSchema = new Mongoose.Schema(
 		type: Date,
 		default: Date.now,
 	},
-	lastViewAt: Date,
+	lastViewAt: 
+	{
+		type: Date,
+		default: Date.now,
+	},
 	source: String,
 	author: 
 	{
