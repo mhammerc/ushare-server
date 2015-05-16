@@ -129,7 +129,8 @@ This route permit you to get informations about the user provided by accountkey 
     	"email": String,
     	"accountType": String,
     	"numberOfFilesSaved": Number,
-    	"numberOfViews": Number
+    	"numberOfViews": Number,
+      "numberOfFilesSavedToday": Number
 	}
 
 Fields are self-explained. Just note that accountType will be *regular*, *premium* or *vip*.

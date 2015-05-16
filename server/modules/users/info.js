@@ -2,6 +2,7 @@
 
 let Users = require('./models/user');
 let UsersSecurity = require('./models/user_security');
+let Files = require('./../files/models/file');
 
 function http(req, res)
 {
@@ -35,7 +36,24 @@ function http(req, res)
 		response.numberOfFilesSaved = user.profile.numberOfFiles;
 		response.numberOfViews = user.profile.numberOfViews;
 
-		res.json(response);
+		// Get the number of files saved today
+		let todayMidnight = new Date();
+		todayMidnight.setHours(0, 0, 0, 0);
+
+		let query = Files.where('receivedAt').gte(todayMidnight);
+		query.where('available').equals(true);
+
+		query.count(function(err, count) {
+			if(err)
+			{
+				handleError(err);
+				res.serverError(err);
+				return;
+			}
+
+			response.numberOfFilesSavedToday = count;
+			res.json(response);
+		});
 	});
 }
 
@@ -69,7 +87,24 @@ function ws(ws, msg)
 		response.numberOfFilesSaved = document.profile.numberOfFiles;
 		response.numberOfViews = document.profile.numberOfViews;
 
-		ws.json(response);
+		// Get the number of files saved today
+		let todayMidnight = new Date();
+		todayMidnight.setHours(0, 0, 0, 0);
+
+		let query = Files.where('receivedAt').gte(todayMidnight);
+		query.where('available').equals(true);
+
+		query.count(function(err, count) {
+			if(err)
+			{
+				handleError(err);
+				res.serverError(err);
+				return;
+			}
+
+			response.numberOfFilesSavedToday = count;
+			res.json(response);
+		});
 	});
 }
 

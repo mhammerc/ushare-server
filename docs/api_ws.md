@@ -52,7 +52,8 @@ And you will receive something like this :
     	"email": String,
     	"accountType": String,
     	"numberOfFilesSaved": Number,
-    	"numberOfViews": Number
+    	"numberOfViews": Number,
+        "numberOfFilesSavedToday": Number
     }
 
 Fields are self-explained. Just note that `accountType` will be *regular*, *premium* or *vip*.
