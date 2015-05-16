@@ -59,6 +59,7 @@ function http(req, res)
 				const file = {};
 
 				file.link = Config.app.url + element.shortName;
+				file.silentLink = Config.app.url + 'silent/' + element.shortName;
 				file.shortname = element.shortName;
 				file.name = element.originalFileName;
 				file.size = element.size;
@@ -118,6 +119,7 @@ function ws(ws, msg)
 			const file = {};
 
 			file.link = Config.app.url + document.shortName;
+			file.silentLink = Config.app.url + 'silent/' + document.shortName;
 			file.shortname = document.shortName;
 			file.name = document.originalFileName;
 			file.size = document.size;

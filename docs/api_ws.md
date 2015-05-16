@@ -76,6 +76,7 @@ this :
     	[
     		{
     			"link": String,
+                "silentLink": String,
                 "shortname": String,
     			"name": String,
     			"size": Number,
@@ -89,4 +90,5 @@ this :
 
 Fields are self-explained. Just note that `name` is the original file name, `date` is the date when
 the file was received, `views` is the number of views of the file and `size` is the number of bytes
-of the file. *Link* is the link to view the file.
+of the file. *Link* is the link to view the file btw *silentLink* is a link to view the file 
+without incrementing the view counter.
