@@ -52,6 +52,8 @@ function http(req, res)
 			}
 
 			const response = {};
+
+			response.success = true;
 			response.numberOfFiles = documents.length;
 			response.files = [];
 
@@ -111,6 +113,8 @@ function ws(ws, msg)
 		}
 
 		const response = {};
+
+		response.success = true;
 		response.numberOfFiles = documents.length;
 		response.files = [];
 

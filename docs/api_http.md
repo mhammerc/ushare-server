@@ -125,6 +125,7 @@ This route permit you to get informations about the user provided by accountkey 
 *Response :*
     
     {
+      "success": true,
     	"username": String,
     	"email": String,
     	"accountType": String,
@@ -150,6 +151,7 @@ and privatekey. More recent file is first in the array. The maximum limit is 500
 *Response :*
 
     {
+      "success": true,
     	"numberOfFiles": Number,
     	"files":
     	[

@@ -48,6 +48,7 @@ This route send you information about you. This is the message you need to send 
 And you will receive something like this :
 
     {
+        "success": true,
     	"username": String,
     	"email": String,
     	"accountType": String,
@@ -72,6 +73,7 @@ Replace `Number` by the number of files details you want (max limit is 500). You
 this :
 
     {
+        "success": true,
     	"numberOfFiles": Number,
     	"files": 
     	[

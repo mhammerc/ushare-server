@@ -30,6 +30,7 @@ function http(req, res)
 
 		const response = {};
 
+		response.success = true;
 		response.username = user.username;
 		response.email = user.emails[0].address;
 		response.accountType = user.profile.accountType;
@@ -81,6 +82,7 @@ function ws(ws, msg)
 
 		const response = {};
 
+		response.success = true;
 		response.username = document.username;
 		response.email = document.emails[0].address;
 		response.accountType = document.profile.accountType;
