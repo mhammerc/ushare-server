@@ -27,7 +27,7 @@ function deleteFile(req, res)
 			return;
 		}
 
-		File.findOne({shortName:req.body.shortname, available:true}, function(err, file)
+		File.findOne({ shortName:req.body.shortname, available:true }, function(err, file)
 		{
 			if(handleError(err))
 			{
@@ -41,7 +41,7 @@ function deleteFile(req, res)
 				return;
 			}
 
-			if(!file.author || !file.author.equals(user._id))
+			if(!file.author || file.author !== user._id)
 			{
 				res.sendError('You\'ve no rights on this file.');
 				return;
