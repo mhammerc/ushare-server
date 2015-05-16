@@ -103,7 +103,7 @@ function ws(ws, msg)
 			}
 
 			response.numberOfFilesSavedToday = count;
-			res.json(response);
+			ws.json(response);
 		});
 	});
 }
