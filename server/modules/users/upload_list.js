@@ -58,6 +58,7 @@ function http(req, res)
 			documents.forEach(function(element) {
 				const file = {};
 
+				file.link = Config.app.url + element.shortName;
 				file.shortname = element.shortName;
 				file.name = element.originalFileName;
 				file.size = element.size;
@@ -115,6 +116,8 @@ function ws(ws, msg)
 		documents.forEach(function(document)
 		{
 			const file = {};
+
+			file.link = Config.app.url + document.shortName;
 			file.shortname = document.shortName;
 			file.name = document.originalFileName;
 			file.size = document.size;

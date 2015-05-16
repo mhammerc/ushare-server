@@ -1,6 +1,6 @@
 {
   "app": {
-    "url": "http://localhost/",
+    "url": "http://localhost/", // Never forget the '/' at the end
     "port": 3000
   },
 

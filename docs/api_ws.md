@@ -75,7 +75,8 @@ this :
     	"files": 
     	[
     		{
-    			"shortname": String,
+    			"link": String,
+                "shortname": String,
     			"name": String,
     			"size": Number,
     			"mimetype": String,
@@ -88,4 +89,4 @@ this :
 
 Fields are self-explained. Just note that `name` is the original file name, `date` is the date when
 the file was received, `views` is the number of views of the file and `size` is the number of bytes
-of the file.
+of the file. *Link* is the link to view the file.

@@ -153,7 +153,8 @@ and privatekey. More recent file is first in the array. The maximum limit is 500
     	"files":
     	[
     	    {
-    	    	"shortname": String,
+    	    	"link": String,
+            "shortname": String,
     	    	"name": String,
     	    	"size": Number,
     	    	"mimetype": String,
@@ -165,4 +166,5 @@ and privatekey. More recent file is first in the array. The maximum limit is 500
     }
 
 Note that *name* is the original file name. *Views* is the number of time the file has been viewed 
-and *date* store when the file has been received. *Size* is the number of bytes the file is.
+and *date* store when the file has been received. *Size* is the number of bytes the file is. *Link* 
+is the link to view the file.
