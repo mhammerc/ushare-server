@@ -7,13 +7,13 @@ ExpressApp.use(function(req, res, next)
 {
 	res.sendError = function(error)
 	{
-		res.json({ success:false, message:error });
+		res.json({ success: false, message: error });
 		return res;
 	}
 
 	res.sendSuccess = function(message)
 	{
-		res.json({ success:true, message });
+		res.json({ success: true, message });
 		return res;
 	}
 

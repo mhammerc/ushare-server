@@ -1,8 +1,9 @@
 'use strict';
 
 let User = require('./models/user');
-let validator = require('validator');
 let Stats = require('./../stats/models/stats');
+let validator = require('validator');
+let chance = require('chance');
 
 /* This controller register the user.
  * You must give in an x-www-form-urlencoded POST request the following datas :
@@ -81,6 +82,7 @@ function register(req, res)
 
 		let user = new User();
 
+		user._id = chance(Date.now()).string(Config.mongo._id);
 		user.username = body.username;
 		user.setPassword(body.password);
 		user.addEmailAddress(body.email);
@@ -89,17 +91,16 @@ function register(req, res)
 		{
 			if(handleError(err))
 			{
-				res.status(500).sendError('An error occurred. Please contact us with this following'
-				 	+ `key : ${Date.now()}`);
-
+				res.serverError(err);
 				return;
 			}
 
-			uShare.logNotice('New user created.', null, {ip:req.ip, body});
+			uShare.logNotice('New user created.', null, { ip: req.ip, body });
 
 			res.sendSuccess('Successfully registered!');
 
-			Stats.findOne(function(err, document) {
+			Stats.findOne(function(err, document) 
+			{
 				if(handleError(err)) return;
 
 				++document.users.accounts.total;
