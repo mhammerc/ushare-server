@@ -61,6 +61,18 @@ let StatsSchema = new Mongoose.Schema(
 			default: 0,
 		},
 	},
+	actions: {
+		changePassword:
+		{
+			type: Number,
+			default: 0,
+		},
+		deleteFile:
+		{
+			type: Number,
+			default: 0,
+		},
+	}
 });
 
 module.exports = Mongoose.model('stats', StatsSchema);

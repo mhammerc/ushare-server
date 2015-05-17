@@ -7,6 +7,7 @@ let wsu = require('./websocket');
 let readFile = require('./modules/files/read');
 let uploadFile = require('./modules/files/upload');
 let deleteFile = require('./modules/files/delete');
+let changePasswordFile = require('./modules/files/change_password');
 
 /* User management */
 let registerUser = require('./modules/users/register');
@@ -29,6 +30,10 @@ function router()
 
 	ExpressApp.post('/file/upload', function(req, res)	{
 		uploadFile(req, res);
+	});
+
+	ExpressApp.post('/file/password/edit', function(req, res) {
+		changePasswordFile.http(req, res);
 	});
 
 	ExpressApp.post('/file/delete', function(req, res) {

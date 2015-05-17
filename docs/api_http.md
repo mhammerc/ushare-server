@@ -65,6 +65,17 @@ accountkey and privatekey are optionnal. If you don't provide them, your file wi
   - file : the file by itself
   - source : the name of the app who is sending the request
 
+#### POST /file/password/edit
+
+This route permit you to edit the password of a file.
+
+*Request :*
+  - accountkey
+  - privatekey
+  - shortname : id of the file (in the url)
+  - password : new password
+  - source
+
 #### POST /file/delete
 
 This route permit you to delete a file previously uploaded inside uShare.
