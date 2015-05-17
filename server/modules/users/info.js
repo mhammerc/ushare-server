@@ -66,7 +66,7 @@ function ws(ws, msg)
 		return;
 	}
 	
-	Users.findOneById(ws.userId, function(err, document)
+	Users.findOne({ _id: ws.userId }, function(err, document)
 	{
 		if(handleError(err))
 		{
