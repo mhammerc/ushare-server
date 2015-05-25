@@ -26,6 +26,7 @@ function http(req, res)
 		if(!user)
 		{
 			res.status(403).sendError('Your credentials are not right.');
+			return;
 		}
 
 		File.findOne({ shortName: body.shortname, available: true }, function(err, file)
