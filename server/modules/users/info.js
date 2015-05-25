@@ -43,6 +43,7 @@ function http(req, res)
 
 		let query = Files.where('receivedAt').gte(todayMidnight);
 		query.where('available').equals(true);
+		query.where('author').equals(document._id);
 
 		query.count(function(err, count) {
 			if(err)
@@ -95,6 +96,7 @@ function ws(ws, msg)
 
 		let query = Files.where('receivedAt').gte(todayMidnight);
 		query.where('available').equals(true);
+		query.where('author').equals(document._id);
 
 		query.count(function(err, count) {
 			if(err)
