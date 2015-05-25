@@ -47,7 +47,7 @@ function read(req, res, silent)
 			
 			if(!silent && file.author)
 			{
-				User.findOne(file.author, function(err, author)
+				User.findOne({_id: file.author}, function(err, author)
 				{					
 					if(handleError(err)) return;
 
