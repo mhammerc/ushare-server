@@ -9,7 +9,7 @@ function http(req, res)
 {
 	let body = req.body;
 
-	if(!body.accountkey || !body.privatekey || !body.shortname || body.password || body.source)
+	if(!body.accountkey || !body.privatekey || !body.shortname || !body.password || !body.source)
 	{
 		res.sendError('You must follow the API. See docs for more informations.');
 		return;
