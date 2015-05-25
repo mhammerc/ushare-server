@@ -68,4 +68,4 @@ function http(req, res)
 	});
 }
 
-exports.module = { http };
+module.exports = { http };
