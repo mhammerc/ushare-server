@@ -1,0 +1,51 @@
+<template name="Login">
+
+<div class="white-text center-align">
+	<h1>uShare</h1>
+</div>
+
+<div class="card">
+	<div class="card-content">
+		<div class="row">
+			<form class="col s12" id="main-form">
+				<div class="row">
+					
+				<p class="red-text hide" id="error">Your credentials are not right.</p>
+
+					<div class="input-field col s12">
+						<i class="mdi-action-account-box prefix"></i>
+						<input id="username" name="username" type="text" class="validate">
+						<label for="username">Username</label>
+					</div>
+
+					<div class="input-field col s12">
+						<i class="mdi-action-lock prefix"></i>
+						<input id="password" name="password" type="password" class="validate">
+						<label for="password">Password</label>
+					</div>
+
+					<div class="center-align">
+
+						<a class="waves-effect waves-light btn">
+							<i class="mdi-hardware-keyboard-arrow-left left"></i>
+							Back to the main website
+						</a>
+
+						<button class="btn waves-effect waves-light" type="submit">
+							Login!
+  						</button>
+
+  					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="white-text center-align">
+	<h4>Ready to join us? Come on, we are future!</h4>
+	<h6>Do not be afraid to take beers, they are in the fridges right at the entrance!</h6>
+</div>
+
+</template>
