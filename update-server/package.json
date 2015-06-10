@@ -1,0 +1,23 @@
+{
+  "name": "update-server",
+  "version": "1.0.0",
+  "description": "The update server of uShare",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martin-mh/ushare-server.git"
+  },
+  "author": "Martin Hammerchmidt",
+  "license": "Proprietary",
+  "bugs": {
+    "url": "https://github.com/martin-mh/ushare-server/issues"
+  },
+  "homepage": "https://github.com/martin-mh/ushare-server#readme",
+  "dependencies": {
+    "express": "^4.12.4",
+    "mongoose": "^4.0.5"
+  }
+}
