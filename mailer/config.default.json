@@ -1,0 +1,10 @@
+{
+  "mongo": {
+    "url": "mongodb://localhost/ushare"
+  },
+  "mailjet": {
+    "apiKey": "3f5d38b1cfaf7aff911bf9ac0cfe328c",
+    "secretKey": "98b43215a7c7cc9e5fbb2529bb616c5e"
+  },
+  "senderEmail": "noreply@ushare.so"
+}

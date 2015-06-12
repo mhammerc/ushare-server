@@ -1,0 +1,23 @@
+{
+  "name": "ushare-mailer",
+  "version": "1.0.0",
+  "description": "Mail server of uShare",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martin-mh/ushare-server.git"
+  },
+  "author": "Martin Hammerchmidt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martin-mh/ushare-server/issues"
+  },
+  "homepage": "https://github.com/martin-mh/ushare-server#readme",
+  "dependencies": {
+    "mailjet-sendemail": "^1.1.4",
+    "mongoose": "^4.0.5"
+  }
+}
