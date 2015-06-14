@@ -24,6 +24,7 @@ function getRandomShortName(callback)
 		{
 			/* If this shortName already exist, just rerun the getter. */
 			getRandomShortName(callback);
+			return;
 		}
 
 		callback(shortName);
@@ -50,6 +51,7 @@ function upload(req, res)
 		if(!shortName)
 		{
 			res.status(500).sendError('An error occurred.');
+			return;
 		}
 
 		let fileData = new File(); // The file inside MongoDB
