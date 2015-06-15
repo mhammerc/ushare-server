@@ -1,0 +1,50 @@
+<head>
+  <title>beta-website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+
+<body>
+<div class="row fullheight valign-wrapper">
+  {{> hello}}
+</div>
+</body>
+
+<template name="hello">
+
+<div class="col s12 l6 offset-l3 valign center-align white-text">
+	<div class="head">
+		<h1>uShare</h1>
+		<h3>Le nouvel <a href="http://www.uplmg.com">Uplimg</a> arrive !</h3>
+		<h6>Entrez votre adresse email pour être tenu au courant des avancées de uShare.</h6>
+		<h6>Et peut être vous obtiendrez un accès pour la bêta privée le 1 Juillet !</h6>
+	</div>
+
+	<div class="email-form">
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s10 offset-s1 offset-l2 l6">
+						<i class="mdi-communication-email prefix"></i>
+						<input id="email" type="text" />
+						<label for="email">Adresse email</label>
+					</div>
+
+					<div class="col s8 offset-s2 l2 center-align">
+						<p>
+							<a class="waves-effect waves-light btn" id="submit">
+								C'est parti !
+							</a>
+						</p>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="success-registered hide">
+		<h4>Bienvenue parmis nous !</h4>
+		<p>Vous avez reçu un mail de confirmation.</p>
+	</div>
+</div>
+
+</template>

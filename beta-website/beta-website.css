@@ -1,0 +1,71 @@
+/* CSS declarations go here */
+html, body, .fullheight
+{
+	height: 99%;
+}
+
+body
+{
+	background-image: url("leftside.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+h1
+{
+	opacity: 0.64;
+	font-weight: 0;
+}
+
+h3
+{
+	opacity: 0.69;
+	font-weight: 0;
+}
+
+h6
+{
+	opacity: 0.87;
+}
+
+p
+{
+	opacity: 0.85;
+}
+
+i
+{
+	opacity: 0.65;
+}
+
+.email-form
+{
+	margin-top: 1em;
+}
+
+.btn
+{
+	background-color: #27ae60;
+	width: 100%;
+	min-width: 175px;
+}
+
+.input-field input[type=text]:focus
+{
+     border-bottom: 1px solid #27ae60;
+     box-shadow: 0 1px 0 0 #27ae60;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label 
+{
+    color: #27ae60;
+}
+
+.input-field .prefix.active 
+{
+    opacity: 0.65;
+    color: #fff;
+}
