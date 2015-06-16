@@ -21,7 +21,7 @@ function app()
 					document.type, document.content);
 
 			document.sended = true;
-			document.save(function(){});
+			document.save(function(err){if(err) console.log(err);});
 		}
 	});
 

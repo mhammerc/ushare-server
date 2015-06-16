@@ -15,16 +15,16 @@ Meteor.methods(
 		if(!validator.isEmail(email))
 		{
 			throw new Meteor.Error('not-email', 'You\'re email isn\'t one.');
-			return
+			return;
 		}
 
-		if(hasAlreadyRegistered(email, this.connection.clientAddress))
+		if(hasAlreadyRegistered(email, headers.getClientIp()))
 		{
 			throw new Meteor.Error('already-registered', 'You are already registered.');
 			return;
 		}
 
-		Newsletter.insert({email:email, ip: this.connection.clientAddress});
+		Newsletter.insert({email:email, ip: headers.getClientIp()});
 
 		Mails.insert(
 		{
@@ -33,9 +33,9 @@ Meteor.methods(
 			subject: 'Inscription à la bêta de uShare !',
 			type: 'html',
 			sended: false
-		});
+	       });
 
-		console.log('Newsletter for ' + email + ' (' + this.connection.clientAddress + ')');
+		console.log('Newsletter for ' + email + ' (' headers.getClientIp() + ')');
 	},
 	hasAlreadyRegistered: function(email) { return hasAlreadyRegistered(email, this.connection.clientAddress); }
 })
