@@ -15,8 +15,13 @@ function http(req, res)
 
 	if(typeof body.limit !== "number")
 	{
-		res.status(404).sendError('limit must be a number.');
-		return;
+		body.limit = parseInt(body.limit, 10);
+		
+		if(isNaN(body.limit))
+		{
+			res.status(404).sendError('limit must be a number.');
+			return;
+		}
 	}
 
 	UsersSecurity.verifyIdentity(body.accountkey, body.privatekey, function(err, user) {
