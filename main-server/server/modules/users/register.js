@@ -43,6 +43,8 @@ function register(req, res)
 	if(!validator.isLength(body.password, 128, 128))
 	{
 		res.status(404).sendError('Your password must be encrypted has SHA-256 and sended as Hexa.');
+		
+		return;
 	}
 	
 	/* -- Verifying if a similar user is already existing -- */
