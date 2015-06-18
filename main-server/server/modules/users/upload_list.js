@@ -54,6 +54,7 @@ function http(req, res)
 			if(!documents || documents.length === 0)
 			{
 				res.json({ nOfFiles: 0, files: [] });
+				return;
 			}
 
 			const response = {};
