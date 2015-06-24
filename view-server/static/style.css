@@ -1,0 +1,24 @@
+.opacity-lighter-1 {
+    opacity: 0.75;
+}
+
+.hide {
+    visible: false;
+}
+
+.unhide {
+    visible: true;
+}
+
+body, html {
+    height: 100%;
+}
+
+.right-panel {
+    margin-left: 75%;
+    width: 25%;
+}
+
+.fullheight {
+    height: 100%;
+}

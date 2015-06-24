@@ -1,0 +1,8 @@
+{
+  "mongo": {
+    "url": "mongodb://92.222.195.209/ushare"
+  },
+  "url": {
+    "apiServer": "http://api.ushare.so/"
+  }
+}

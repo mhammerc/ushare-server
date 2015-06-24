@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style.css">
+        
+        <script src="/static/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+            
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+        
+        <title>{{name}} - uShare</title>
+    </head>
+    
+    <body>
+        
+        <nav>
+            <div class="nav-wrapper light-blue">
+                <div class="container">
+                    <a href="http://www.ushare.so" class="brand-logo">uShare</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="#">uShare Online</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="card hoverable">
+                    <div class="card-content black-text">
+                        <div class="center-align">
+                            <h4 class="black-text opacity-lighter-1">Télécharger un fichier</h4>
+                        </div>
+                        <hr>
+                        
+                        <ul>
+                            <li>Nom : {{name}}</li>
+                            <li>Taille : {{size}}</li>
+                        </ul>
+                    
+                        <div class="center-align">
+                            <a href={{url}} class="waves-effect waves-light btn light-blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Assurez-vous de la provenance du fichier avant de le télécharger">
+                                <i class="material-icons left">file_download</i> Télécharger
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        
+        <script>
+            $(document).ready(function()
+            {
+                $('.tooltipped').tooltip({delay: 50});
+            });
+        </script>
+    </body>
+</html>

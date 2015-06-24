@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style.css">
+        
+        <script src="/static/jquery.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script> -->
+            
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+        
+        <link rel="stylesheet" href="/static/plyr.css">
+        <script src="/static/plyr.js"></script>
+        
+        <title>{{name}} - uShare</title>
+    </head>
+    
+    <body>
+        
+        <nav>
+            <div class="nav-wrapper light-blue">
+                <div class="container">
+                    <a href="http://www.ushare.so" class="brand-logo">uShare</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="#">uShare Online</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="card hoverable">
+                    <div class="card-content black-text">
+                        <div class="center-align">
+                            <h4 class="black-text opacity-lighter-1">Télécharger un fichier audio</h4>
+                        </div>
+                        <hr>
+                        
+                        <div class="player unhide" id="player">
+                            <audio controls id="video">
+                                <source src={{url}}>
+                            </audio>
+                        </div>
+                        
+                        <ul>
+                            <li>Nom : {{name}}</li>
+                            <li>Taille : {{size}}</li>
+                        </ul>
+                        
+                        <div class="center-align">
+                            <a href={{url}} class="waves-effect waves-light btn light-blue">
+                                <i class="material-icons left">file_download</i> Télécharger
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        
+        <script>
+            (function(d,p){var a=new XMLHttpRequest(),b=d.body;a.open("GET",p,!0);
+            a.send();a.onload=function(){var c=d.createElement("div");c.style.display="none";
+            c.innerHTML=a.responseText;b.insertBefore(c,b.childNodes[0])}
+            })(document,"/static/plyr.svg");
+            
+            var player = $('#player');
+            var audio = document.createElement('audio');
+            
+            if(audio.canPlayType('{{mimetype}}'))
+            {
+                plyr.setup();
+            }
+            else
+            {
+                player.removeClass('unhide');
+                player.addClass('hide');
+            }
+        </script>
+    </body>
+</html>
