@@ -11,7 +11,7 @@ function app()
     
     Express.use('/static', ExpressRoot.static('static'));
     
-    let server = Express.listen(process.env.PORT, process.env.IP, function()
+    let server = Express.listen(Config.port, Config.ip, function()
     {
         console.log('Server started!');
     });

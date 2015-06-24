@@ -23,6 +23,8 @@ ExpressApp.use(function(req, res, next)
 		return res;
 	}
 
+	res.set('Access-Control-Allow-Origin', 'http://view.ushare.so');
+
 	next();
 });
 
