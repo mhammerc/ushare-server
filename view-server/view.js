@@ -31,7 +31,7 @@ function view(shortName, req, res)
            res.send(Templates.audio({ url, name: document.originalFileName, size, mimetype: document.mimetype }));
            return;
        }
-       else if(document.mimetype === 'application/pdf')
+       else if(document.mimetype === 'application/pdf' || document.mimetype === 'application/vnd.oasis.opendocument.text' || document.mimetype === 'application/vnd.oasis.opendocument.spreadsheet' || document.mimetype === 'application/vnd.oasis.opendocument.presentation')
        {
            res.send(Templates.document({ url, name: document.originalFileName, size}));
            return;
