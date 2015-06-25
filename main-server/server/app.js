@@ -5,7 +5,7 @@ let router = require('./router');
 /* Just a little middleware to make responses easiers */
 ExpressApp.use(function(req, res, next)
 {
-	req.ip = req.get('X-Real-Ip');
+	//req.ip = req.get('X-Real-Ip');
 	
 	res.sendError = function(error)
 	{
