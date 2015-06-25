@@ -1,6 +1,8 @@
 {
   "app": {
     "url": "http://localhost/",
+    "viewUrl": "http://localhost/",
+    "apiUrl": "http://api.localhost/",
     "port": 3000
   },
 

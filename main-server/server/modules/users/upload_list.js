@@ -66,8 +66,8 @@ function http(req, res)
 			documents.forEach(function(element) {
 				const file = {};
 
-				file.link = Config.app.url + element.shortName;
-				file.silentLink = Config.app.url + 'silent/' + element.shortName;
+				file.link = Config.app.viewUrl + element.shortName;
+				file.silentLink = Config.app.apiUrl + 'silent/' + element.shortName;
 				file.shortname = element.shortName;
 				file.name = element.originalFileName;
 				file.size = element.size;
