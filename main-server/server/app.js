@@ -5,23 +5,43 @@ let router = require('./router');
 /* Just a little middleware to make responses easiers */
 ExpressApp.use(function(req, res, next)
 {
+	req.ip = req.get('X-Real-Ip');
+	
 	res.sendError = function(error)
 	{
-		res.json({ success: false, message: error });
-		return res;
-	}
+		if(typeof error === 'string')
+		{
+			res.json({ success: false, message: error });
+			return res;
+		}
+		else if(typeof error === 'object')
+		{
+			error.success = true;
+			res.json(error);
+			return res;
+		}
+	};
 
 	res.sendSuccess = function(message)
 	{
-		res.json({ success: true, message });
-		return res;
-	}
+		if(typeof message === 'string')
+		{
+			res.json({ success: true, message });
+			return res;
+		}
+		else if(typeof message === 'object')
+		{
+			message.success = true;
+			res.json(message);
+			return res;
+		}
+	};
 
 	res.serverError = function(date)
 	{
 		res.status(500).sendError('Internal error, please warn us with the following key : ' + date);
 		return res;
-	}
+	};
 
 	res.set('Access-Control-Allow-Origin', 'http://view.ushare.so');
 
@@ -33,7 +53,11 @@ function firstStart()
 {	
 	Stats.find().count(function(err, count)
 	{
-		// TODO - handle err argument
+		if(handleError(err))
+		{
+			uShare.notice('An error occurred :(');
+			return;
+		}
 
 		if(count !== 0)
 			return;

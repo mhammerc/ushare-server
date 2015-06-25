@@ -7,9 +7,9 @@ function http(req, res)
 {
 	let body = req.headers;
 
-	if(!body.accountkey || !body.privatekey || !body.limit || !body.source)
+	if(!body.accountkey || !body.privatekey || !body.limit || !body.source)
 	{
-		res.status(404).sendError('You must provide an accountkey, privatekey, limit and the source.');
+		res.status(400).sendError('You must follow the API. See docs for more informations.');
 		return;
 	}
 
@@ -19,16 +19,16 @@ function http(req, res)
 		
 		if(isNaN(body.limit))
 		{
-			res.status(404).sendError('limit must be a number.');
+			res.status(400).sendError('You must follow the API. See docs for more informations.');
 			return;
 		}
 	}
 
-	UsersSecurity.verifyIdentity(body.accountkey, body.privatekey, function(err, user) {
-		
+	UsersSecurity.verifyIdentity(body.accountkey, body.privatekey, function(err, user)
+	{
 		if(handleError(err)) 
 		{
-			res.status(500).sendError('Internal error, please warn us with the following key : ' + err);
+			res.serverError(err);
 			return;
 		}
 
@@ -43,27 +43,27 @@ function http(req, res)
 		query.select('shortName originalFileName size mimetype views.notSilent receivedAt password');
 		query.limit(body.limit <= 500 ? body.limit : 500);
 
-		query.exec(function(err, documents) {
-
+		query.exec(function(err, documents)
+		{
 			if(handleError(err))
 			{
-				res.status(500).sendError('Internal error, please warn us with the following key : ' + err);
+				res.serverError(err);
 				return;
 			}
 
 			if(!documents || documents.length === 0)
 			{
-				res.json({ nOfFiles: 0, files: [] });
+				res.sendSuccess({ numberOfFiles: 0, files: [] });
 				return;
 			}
 
 			const response = {};
 
-			response.success = true;
 			response.numberOfFiles = documents.length;
 			response.files = [];
 
-			documents.forEach(function(element) {
+			documents.forEach(function(element) 
+			{
 				const file = {};
 
 				file.link = Config.app.viewUrl + element.shortName;
@@ -79,70 +79,10 @@ function http(req, res)
 				response.files.push(file);
 			});
 
-			res.json(response);
+			res.sendSuccess(response);
 
 		});
 	});
 }
 
-function ws(ws, msg)
-{
-	if(!ws.userId)
-	{
-		ws.sendError('You must be logged before asking anything.');
-		return;
-	}
-
-	if(!msg.limit || typeof msg.limit !== 'number')
-	{
-		ws.sendError('You must provide a limit.');
-		return;
-	}
-
-	let query = Files.find({ author: ws.userId, available: true });
-	query.sort({ receivedAt: -1 });
-	query.select('shortName originalFileName size mimetype views.notSilent receivedAt password');
-	query.limit(msg.limit <= 500 ? msg.limit : 500);
-
-	query.exec(function(err, documents) {
-		
-		if(handleError(err))
-		{
-			res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
-			return;
-		}
-
-		if(!documents)
-		{
-			ws.sendSuccess('No files yet.');
-			return;
-		}
-
-		const response = {};
-
-		response.success = true;
-		response.numberOfFiles = documents.length;
-		response.files = [];
-
-		documents.forEach(function(document)
-		{
-			const file = {};
-
-			file.link = Config.app.url + document.shortName;
-			file.silentLink = Config.app.url + 'silent/' + document.shortName;
-			file.shortname = document.shortName;
-			file.name = document.originalFileName;
-			file.size = document.size;
-			file.mimetype = document.mimetype;
-			file.views = document.views.notSilent;
-			file.date = document.receivedAt;
-			file.password = document.password;
-
-			response.files.push(file);
-		});
-
-		ws.json(response);
-	});
-}
-
-module.exports = { http, ws };
+module.exports = http;

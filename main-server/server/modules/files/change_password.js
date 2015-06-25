@@ -11,7 +11,7 @@ function http(req, res)
 
 	if(!body.accountkey || !body.privatekey || !body.shortname || !body.source)
 	{
-		res.sendError('You must follow the API. See docs for more informations.');
+		res.status(400).sendError('You must follow the API. See docs for more informations.');
 		return;
 	}
 
@@ -44,29 +44,30 @@ function http(req, res)
 
 			if(!file)
 			{
-				res.sendError('The file you provided is not existing.');
+				res.status(404).sendError('The file provided does not exist.');
 				return;
 			}
 
 			if(!file.author || file.author !== user._id)
 			{
-				res.sendError('You\'ve no rights on this file.');
+				res.status(403).sendError('You\'ve no rights on this file.');
 				return;
 			}
 
 			file.password = body.password;
+			
 			file.save(function(err)
 			{
 				if(handleError(err)) return serverError(err);
 
-				res.sendSuccess('Password changed.');
+				res.sendSuccess('Password edited.');
 
 				Stats.findOne(function(err, document)
 				{
 					if(handleError(err)) return;
 
 					++document.actions.changePassword;
-					document.save(function(err) { handleError(err); });
+					document.save(function(err) { handleError(err); });
 				});
 			});
 

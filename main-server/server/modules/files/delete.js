@@ -9,7 +9,7 @@ function deleteFile(req, res)
 {
 	if(!req.body.accountkey || !req.body.privatekey || !req.body.shortname || !req.body.source)
 	{
-		res.sendError('You must provide account and private keys, id of the file and a source.');
+		res.status(400).sendError('You must follow the API. See docs for more informations.');
 		return;
 	}
 
@@ -17,7 +17,7 @@ function deleteFile(req, res)
 	{
 		if(handleError(err))
 		{
-			res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+			res.status(500).sendError(`Internal error`);
 			return;
 		}
 
@@ -27,32 +27,33 @@ function deleteFile(req, res)
 			return;
 		}
 
-		File.findOne({ shortName:req.body.shortname, available:true }, function(err, file)
+		File.findOne({ shortName: req.body.shortname, available: true }, function(err, file)
 		{
 			if(handleError(err))
 			{
-				res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+				res.serverError(err);
 				return;
 			}
 
 			if(!file)
 			{
-				res.sendError('The file you provided is not existing.');
+				res.status(400).sendError('The file provided does not exist.');
 				return;
 			}
 
 			if(!file.author || file.author !== user._id)
 			{
-				res.sendError('You\'ve no rights on this file.');
+				res.status(403).sendError('You\'ve no rights on this file.');
 				return;
 			}
 
 			file.available = false;
+			
 			file.save(function(err)
 			{
 				if(handleError(err))
 				{
-					res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+					res.serverError(err);
 					return;
 				}
 
@@ -63,7 +64,10 @@ function deleteFile(req, res)
 
 					++document.files.notAvailable;
 					--document.files.available;
-					document.save(function(err){ handleError(err); });
+					
+					++document.actions.deleteFile;
+					
+					document.save(function(err) { handleError(err); });
 				});
 			});
 		});

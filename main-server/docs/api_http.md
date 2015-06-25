@@ -1,7 +1,7 @@
 # The API
 ## HTTP
 
-The HTTP API is the main part of our API. The API also support WebSockets but in a minor way.
+The HTTP API is the main part of our API.
 
 Every parameters in a POST request must be in a form. In a GET request, *accountkey* and 
 *privatekey* will be in headers.
@@ -17,7 +17,7 @@ connection, he know who you are and has your password. That's a problem.
 That's why we created the *accountkey* and the *privatekey*. You need to login only once, then
 the API give you two keys. Next time you need to proof your identity, you only need to send these
 keys. And if someone listen your connection and imitate you, you just need to revoke the privatekey
-and create new one.
+and create new one. Get warned, these keys grant full access to your account!
 
 An *accountkey* represent the user. Every users have one and only one unique accountkey. With it, 
 we recognize you.
@@ -73,7 +73,7 @@ This route permit you to edit the password of a file.
   - accountkey
   - privatekey
   - shortname : id of the file (in the url)
-  - password : new password
+  - password : new password (if empty, password will be deleted)
   - source
 
 #### POST /file/delete
@@ -148,7 +148,6 @@ This route permit you to get informations about the user provided by accountkey 
 Fields are self-explained. Just note that accountType will be *regular*, *premium* or *vip*.
 
 #### GET /user/uploads
-*Available in websockets API*
 
 This route permit you to get a detailed list of files sended by a the user provided by accountkey
 and privatekey. More recent file is first in the array. The maximum limit is 500.

@@ -2,14 +2,14 @@
 
 let FileSchema = new Mongoose.Schema(
 {
-	shortName: String,
-	fileName: String,
-	originalFileName: String,
+	shortName: String, // The file short id, used in URLs
+	fileName: String, // The stored file name
+	originalFileName: String, // The original file name
 	path: String,
 	encoding: String,
 	mimetype: String,
 	extension: String,
-	size: Number,
+	size: Number, // In bytes
 	password:
 	{
 		type: String,

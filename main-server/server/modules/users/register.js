@@ -20,61 +20,48 @@ function register(req, res)
 
 	if(!body.username || !body.email || !body.password || !body.source)
 	{
-		res.status(404).sendError('You must provide a username, an email, a password and finally '
-			+ 'the source name.');
+		res.status(400).sendError('You must follow the API. See docs for more informations.');
 
 		return;
 	}
 
 	if(!validator.isEmail(body.email))
 	{
-		res.status(404).sendError('You must provide a valid email address');
+		res.status(400).sendError('You must provide a valid email address');
 
 		return;
 	}
 
 	if(!validator.isLength(body.username, 3, 20))
 	{
-		res.status(404).sendError('Your username must has at least 3 characters.');
+		res.status(400).sendError('Your username must has at least 3 characters.');
 
 		return;
 	}
 	
-	/*if(!validator.isLength(body.password, 128, 128))
-	{
-		res.status(404).sendError('Your password must be encrypted has SHA-256 and sended as Hexa.');
-		
-		return;
-	}*/
-	
 	/* -- Verifying if a similar user is already existing -- */
 
 	let isUserAlreadyExisting = User.find().or(
-		[
+	[
 		{
 			username: body.username
 		}, 
 		{
 			mainEmailAddress: body.email
-		}]);
+		}
+	]);
 
 	isUserAlreadyExisting.exec(function(err, doc)
 	{
 		if(handleError(err))
 		{
-			res.status(500).sendError('An error occurred. Please contact us '
-				+ `with this following key : ${err}`);
-
+			res.serverError(err);
 			return;
 		}
 
 		if(doc.length !== 0) // Similar user is existing
 		{
-			uShare.logNotice('User already registered just try to register.', null, 
-							{ip:req.ip,body:body});
-
-			res.sendError('You are already registered');
-
+			res.status(403).sendError('You are already registered');
 			return;
 		}
 
@@ -94,8 +81,6 @@ function register(req, res)
 				res.serverError(err);
 				return;
 			}
-
-			uShare.logNotice('New user created.', null, { ip: req.ip, body });
 
 			res.sendSuccess('Successfully registered!');
 

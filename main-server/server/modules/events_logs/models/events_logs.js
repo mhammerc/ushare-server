@@ -25,7 +25,7 @@ EventsLogs.statics.log = function(what, category)
 	event.save();
 
 	return date;
-}
+};
 
 let Logs = Mongoose.model('EventsLogs', EventsLogs);
 
@@ -58,25 +58,19 @@ function getEntry(message, content, additionalInformations)
 uShare.log = function log(entry, level)
 {
 	return Logs.log(entry, level);
-}
+};
 
 uShare.logNotice = function logNotice(message, content, additionalInformations)
 {
 	let entry = getEntry(message, content, additionalInformations);
 	return uShare.log(entry, 'notice');
-}
-
-uShare.logWarning = function logWarning(message, content, additionalInformations)
-{
-	let entry = getEntry(message, content, additionalInformations);
-	return uShare.log(entry, 'warning');
-}
+};
 
 uShare.logError = function logError(message, content, additionalInformations)
 {
 	let entry = getEntry(message, content, additionalInformations);
 	return uShare.log(entry, 'error');
-}
+};
 
 uShare.notice = function notice(string)
 {
@@ -90,21 +84,15 @@ uShare.error = function error(string)
 	return uShare.logError(string);
 };
 
-uShare.warn = function warn(string)
-{
-	console.log(clc.yellow(string));
-	return uShare.logWarning(string);
-};
-
 
 /* On callbacks with always have an err argument.
- * Pass the err argument to it, say what you are doing and eventually give more infos.
+ * Pass the err argument to it, say what you are doing.
  * Then verify if the handle error return true. If it is, there is an error.
  */	
-global.handleError = function handleError(err, infos)
+global.handleError = function handleError(err)
 {
 	if(!err) return false;
 
-	err = uShare.logError(null, err, infos);
+	err = uShare.error(null, err);
 	return err;
-}
+};

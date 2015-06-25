@@ -3,12 +3,14 @@
 let bcrypt = require('bcrypt');
 let chance = require('chance');
 
-let LoginTokensSchema = new Mongoose.Schema({
+let LoginTokensSchema = new Mongoose.Schema(
+{
 	when: Date,
 	hashedToken: String,
 });
 
-let EmailSchema = new Mongoose.Schema({
+let EmailSchema = new Mongoose.Schema(
+{
 	address: String,
 	verified: Boolean,
 });
@@ -48,6 +50,11 @@ let UserSchema = new Mongoose.Schema(
 			type: String,
 			default: 'regular',
 		},
+		avatarUrl:
+		{
+			type: String,
+			default: 'http://www.onrembobine.fr/wp-content/uploads/2012/08/Chuck_Norris-Dodgeball1.jpg',
+		},
 	},
 	createdAt:
 	{
@@ -82,11 +89,11 @@ let UserSchema = new Mongoose.Schema(
  */
 UserSchema.statics.getUser = function getUser(username, password, cb)
 {
-	this.findOne({username}, function(err, document)
+	this.findOne({ username }, function(err, document)
 	{
 		if(err)
 		{
-			cb(err, false);
+			cb(err);
 			return;
 		}
 
@@ -114,12 +121,12 @@ UserSchema.statics.getUser = function getUser(username, password, cb)
 			return;
 		});
 	});
-}
+};
 
 UserSchema.methods.setPassword = function setPassword(pass)
 {
 	this.services.password.bcrypt = pass;
-}
+};
 
 UserSchema.methods.addEmailAddress = function addEmailAddress(email)
 {
@@ -133,16 +140,16 @@ UserSchema.methods.addEmailAddress = function addEmailAddress(email)
 	{
 		this.mainEmailAddress = email;
 	}
-}
+};
 
 UserSchema.methods.incrementNumberOfFiles = function incrementNumberOfFiles()
 {
 	++this.profile.numberOfFiles;
-}
+};
 
 UserSchema.methods.incrementNumberOfViews = function incrementNumberOfViews()
 {
 	++this.profile.numberOfViews;
-}
+};
 
-module.exports = Mongoose.model('users', UserSchema);
+module.exports = Mongoose.model('Users', UserSchema);

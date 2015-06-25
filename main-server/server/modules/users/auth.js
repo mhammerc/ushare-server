@@ -11,7 +11,7 @@ function http(req, res)
 
 	if(!body.username || !body.password || !body.source)
 	{
-		res.sendError('You need to pass a valid username, password and a valid source name');
+		res.status(400).sendError('You must follow the API. See docs for more informations.');
 		return;
 	}
 
@@ -19,13 +19,12 @@ function http(req, res)
 	{
 		if(handleError(err))
 		{
-			res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
-			return;
+			res.serverError(err);
 		}
 
 		if(!user)
 		{
-			res.sendError('Your credentials are not right.');
+			res.status(403).sendError('Your credentials are not right.');
 			return;
 		}
 
@@ -39,16 +38,14 @@ function http(req, res)
 		{
 			if(handleError(err))
 			{
-				res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+				res.serverError(err);
 				return;
 			}
 
-			uShare.logNotice('New private key generated.', {}, {ip:req.ip, user:user._id, 
-				privateKey: auth.privateKey});
+			res.sendSuccess({ accountkey: user._id, privatekey: auth.privateKey });
 
-			res.json({ success: true, accountkey: user._id, privatekey: auth.privateKey, });
-
-			Stats.findOne(function(err, document) {
+			Stats.findOne(function(err, document) 
+			{
 				if(handleError(err)) return;
 
 				++document.users.auths.activated;
@@ -60,34 +57,5 @@ function http(req, res)
 	});
 }
 
-function ws(ws, msg)
-{
-	if(!msg.username || !msg.password || !msg.source)
-	{
-		ws.sendError('Your request isn\'t following the API.');
-		return;
-	}
 
-	User.getUser(msg.username, msg.password, function(err, user)
-	{
-		if(handleError(err))
-		{
-			ws.sendError('Internal error.');
-			return;
-		}
-
-		if(!user)
-		{
-			ws.sendError('Your credentials are not right.');
-			return;
-		}
-
-		ws.username = msg.username;
-		ws.userId = user._id;
-		ws.source = msg.source;
-
-		ws.sendSuccess('You\'re authenticated.');
-	});
-}
-
-module.exports = { http, ws };
+module.exports = http;

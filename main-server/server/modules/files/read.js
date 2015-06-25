@@ -13,17 +13,17 @@ let Stats = require('./../stats/models/stats');
 function read(req, res, silent)
 {
 	// Find the file
-	File.findOne({'shortName': req.params.id, available: true}, function(err, file)
+	File.findOne({ 'shortName': req.params.id, available: true }, function(err, file)
 	{
-		if(err || !file)
+		if(handleError(err))
+		{
+			res.serverError(err);
+			return;
+		}
+		
+		if(!file)
 		{
 			res.status(404).send('Could not find your file.');
-
-			if(handleError(err))
-			{
-				res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
-			}
-
 			return;
 		}
 
@@ -31,30 +31,32 @@ function read(req, res, silent)
 
 		const options = {};
 		options.lastModified = false;
-		options.headers = {'Content-Disposition': `inline; filename="${file.originalFileName}"`};
+		options.headers = { 'Content-Disposition': `inline; filename="${file.originalFileName}"` };
 
-		return res.sendFile(filePath, options, function(err)
+		res.sendFile(filePath, options, function(err)
 		{
-			if(err)
+			if(handleError(err))
 			{
-				return res.status(err.status).end();
+				
+				return res.serverError(res);
 			}
 
 			// Increment views counters
 			if(!silent)	file.incrementViewNumber();
 			else file.incrementSilentViewNumber();
-			file.save(function(err){handleError(err);});
+			
+			file.save(function(err) { handleError(err); });
 			
 			if(!silent && file.author)
 			{
-				User.findOne({_id: file.author}, function(err, author)
+				User.findOne({ _id: file.author }, function(err, author)
 				{					
 					if(handleError(err)) return;
 
 					author.incrementNumberOfViews();
-					author.save(function(err){handleError(err)});
+					author.save(function(err) { handleError(err) });
 				});
-			}			
+			}
 
 			/* Let's update stats */
 			Stats.findOne(function(err, stats)
@@ -66,7 +68,7 @@ function read(req, res, silent)
 				if(!silent) ++stats.views.notSilent;
 				else ++stats.views.silent;
 
-				stats.save(function(err){handleError(err);});
+				stats.save(function(err) { handleError(err); });
 			});
 		});
 	});

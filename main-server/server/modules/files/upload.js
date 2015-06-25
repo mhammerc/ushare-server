@@ -36,15 +36,9 @@ function getRandomShortName(callback)
  */
 function upload(req, res)
 {
-	if(!req.files.file)
+	if(!req.files.file || !req.body.source)
 	{
-		res.status(404).sendError('File missing in field \'file\'.');
-		return;
-	}
-
-	if(!req.body.source)
-	{
-		res.sendError('You need to provide a source.');
+		res.status(400).sendError('You must follow the API. See docs for more informations.');
 		return;
 	}
 
@@ -74,7 +68,7 @@ function upload(req, res)
 		{
 			if(handleError(err))
 			{
-				res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+				res.serverError(err);
 				return;
 			}
 
@@ -91,7 +85,7 @@ function upload(req, res)
 			{
 				if(handleError(err))
 				{
-					res.status(500).sendError(`Internal error. Please warn us with the following key: ${err}`);
+					res.serverError(err);
 					return;
 				}
 
@@ -105,9 +99,10 @@ function upload(req, res)
 					+ `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:` 
 					+ `${date.getMilliseconds()} (${fileData._id})`);
 
-				res.status(200).send(Config.app.url + fileData.shortName);
+				res.status(200).send(Config.app.viewUrl + fileData.shortName);
 
-				Stats.findOne(function(err, document) {
+				Stats.findOne(function(err, document)
+				{
 					if(handleError(err)) return;
 
 					++document.files.available;

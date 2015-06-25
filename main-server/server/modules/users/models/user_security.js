@@ -2,7 +2,6 @@
 
 let User = require('./user');
 let chance = require('chance');
-let validator = require('validator');
 
 /* UserSecuritySchema define the collection who store every privateKey with his accountKey. 
  * Note that the accountKey is the _id of the user but shhhhhht.
@@ -33,7 +32,7 @@ let UserSecuritySchema = new Mongoose.Schema(
 /* This function verify if an identity is right then get the user. You must pass three arguments :
  *   - userId: the _id of the involved user 
  *   - privateKey: the privateKey to test
- *   - cb: the callback to call with err as first argument (always null) and a User as second
+ *   - cb: the callback to call with err as first argument and a User as second
  *		   argument.
  */
 UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, privateKey, cb)
@@ -75,6 +74,9 @@ UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, priv
 			}
 
 			cb(false, document);
+			
+			result.lastAccessAt = Date.now();
+			result.save();
 		});
 	});
 };
@@ -84,4 +86,4 @@ UserSecuritySchema.methods.generateNewPrivateKey = function generateNewPrivateKe
 	return chance(Date.now()).string(Config.user.privateKey);
 };
 
-module.exports = Mongoose.model('users_security', UserSecuritySchema);
+module.exports = Mongoose.model('AuthKeys', UserSecuritySchema);

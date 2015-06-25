@@ -1,6 +1,5 @@
 'use strict';
 
-let Users = require('./models/user');
 let UsersSecurity = require('./models/user_security');
 let Files = require('./../files/models/file');
 
@@ -10,15 +9,15 @@ function http(req, res)
 
 	if(!body.accountkey || !body.privatekey || !body.source)
 	{
-		res.status(404).sendError('You must provide an accountkey, privatekey and the source.');
+		res.status(400).sendError('You must follow the API. See docs for more informations.');
 		return;
 	}
 
-	UsersSecurity.verifyIdentity(body.accountkey, body.privatekey, function(err, user) {
-		
+	UsersSecurity.verifyIdentity(body.accountkey, body.privatekey, function(err, user)
+	{
 		if(handleError(err)) 
 		{
-			res.status(500).sendError('Internal error, please warn us with the following key : ' + err);
+			res.serverError(err);
 			return;
 		}
 
@@ -30,12 +29,12 @@ function http(req, res)
 
 		const response = {};
 
-		response.success = true;
 		response.username = user.username;
-		response.email = user.emails[0].address;
+		response.email = user.mainEmailAddress;
 		response.accountType = user.profile.accountType;
 		response.numberOfFilesSaved = user.profile.numberOfFiles;
 		response.numberOfViews = user.profile.numberOfViews;
+		response.avatarUrl = user.profile.avatarUrl;
 
 		// Get the number of files saved today
 		let todayMidnight = new Date();
@@ -45,72 +44,19 @@ function http(req, res)
 		query.where('available').equals(true);
 		query.where('author').equals(user._id);
 
-		query.count(function(err, count) {
-			if(err)
+		query.count(function(err, count)
+		{
+			if(handleError(err))
 			{
-				handleError(err);
 				res.serverError(err);
 				return;
 			}
 
 			response.numberOfFilesSavedToday = count;
-			res.json(response);
+			
+			res.sendSuccess(response);
 		});
 	});
 }
 
-function ws(ws, msg)
-{
-	if(!ws.userId)
-	{
-		ws.sendError('You must be logged before asking anything.');
-		return;
-	}
-	
-	Users.findOne({ _id: ws.userId }, function(err, document)
-	{
-		if(handleError(err))
-		{
-			ws.sendError('Internal error, please warn us with the following key : ' + err);
-			return;
-		}
-
-		if(!document)
-		{
-			ws.sendError('Internal error');
-			return;
-		}
-
-		const response = {};
-
-		response.success = true;
-		response.username = document.username;
-		response.email = document.emails[0].address;
-		response.accountType = document.profile.accountType;
-		response.numberOfFilesSaved = document.profile.numberOfFiles;
-		response.numberOfViews = document.profile.numberOfViews;
-		response.avatarUrl = 'http://www.onrembobine.fr/wp-content/uploads/2012/08/Chuck_Norris-Dodgeball1.jpg'; // TEMPORAIRE
-
-		// Get the number of files saved today
-		let todayMidnight = new Date();
-		todayMidnight.setHours(0, 0, 0, 0);
-
-		let query = Files.where('receivedAt').gte(todayMidnight);
-		query.where('available').equals(true);
-		query.where('author').equals(document._id);
-
-		query.count(function(err, count) {
-			if(err)
-			{
-				handleError(err);
-				res.serverError(err);
-				return;
-			}
-
-			response.numberOfFilesSavedToday = count;
-			ws.json(response);
-		});
-	});
-}
-
-module.exports = { http, ws };
+module.exports = http;

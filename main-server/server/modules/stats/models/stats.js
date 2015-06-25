@@ -75,4 +75,4 @@ let StatsSchema = new Mongoose.Schema(
 	}
 });
 
-module.exports = Mongoose.model('stats', StatsSchema);
+module.exports = Mongoose.model('Stats', StatsSchema);
