@@ -12,7 +12,7 @@ function getRandomShortName(callback)
 {
 	let shortName = chance(Date.now()).string(Config.newFiles.shortName);
 
-	File.find({shortName}, function(err, document)
+	File.find({ shortName }, function(err, document)
 	{
 		if(handleError(err))
 		{
@@ -38,12 +38,14 @@ function upload(req, res)
 {
 	if(!req.files.file)
 	{
-		return res.status(404).sendError('File missing in field \'file\'.');
+		res.status(404).sendError('File missing in field \'file\'.');
+		return;
 	}
 
 	if(!req.body.source)
 	{
-		return res.sendError('You need to provide a source.');
+		res.sendError('You need to provide a source.');
+		return;
 	}
 
 	getRandomShortName(function(shortName)

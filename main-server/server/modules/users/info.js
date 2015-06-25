@@ -89,6 +89,7 @@ function ws(ws, msg)
 		response.accountType = document.profile.accountType;
 		response.numberOfFilesSaved = document.profile.numberOfFiles;
 		response.numberOfViews = document.profile.numberOfViews;
+		response.avatarUrl = 'http://www.onrembobine.fr/wp-content/uploads/2012/08/Chuck_Norris-Dodgeball1.jpg'; // TEMPORAIRE
 
 		// Get the number of files saved today
 		let todayMidnight = new Date();
