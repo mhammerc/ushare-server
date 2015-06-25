@@ -4,6 +4,11 @@ let View = require('./view.js');
 
 function app()
 {
+    Express.get('/', function(req, res)
+    {
+       res.redirect(301, 'http://www.ushare.so');
+    });
+    
     Express.get('/:id', function(req, res)
     {
        View(req.params.id, req, res);
