@@ -22,3 +22,118 @@ body, html {
 .fullheight {
     height: 100%;
 }
+
+.body-parallax
+{
+    background: url(parallax/background.png) no-repeat center;
+    -webkit-background-size: cover;
+	background-size: cover;
+	overflow: hidden;
+}
+
+@media screen and (min-width: 1280px)
+{
+    .plane-scene
+    {
+        width: 10%;
+    }
+    
+    .cloud-scene
+    {
+        width: 8%;
+    }
+}
+
+@media screen and (max-width: 1280px)
+{
+    .plane-scene
+    {
+        width: 25%;
+    }
+    
+    .cloud-scene
+    {
+        width: 20%;
+    }
+}
+
+.plane-scene
+{
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 15%;
+}
+
+.layer img
+{
+    width: 100%;
+    height: auto;
+}
+
+.cloud-scene1
+{
+    position: absolute;
+    margin-top: 13%;
+    margin-left: 40%;
+}
+
+.cloud-scene2
+{
+    position: absolute;
+    margin-top: 3%;
+    margin-left: 55%;
+}
+
+.cloud-scene3
+{
+    position: absolute;
+    margin-top: 10%;
+    margin-left: 70%;
+}
+
+.body-parallax > .li
+{
+    margin-right: 5%;
+}
+
+.password-form
+{
+    position: absolute;
+    display: block;
+    margin-top: 48%;
+}
+
+ /* label color */
+   .input-field label {
+     color: #03a9f4;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #03a9f4;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #03a9f4;
+     box-shadow: 0 1px 0 0 #03a9f4;
+   }
+      .input-field input[type=text] {
+     border-bottom: 1px solid #03a9f4;
+     box-shadow: 0 1px 0 0 #03a9f4;
+   }
+
+.enter-password 
+{
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.btn, .btn:hover, .btn:focus
+{
+    background-color: #03a9f4;
+}

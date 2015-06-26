@@ -30,9 +30,12 @@ catch(e)
 
 let fs = require('fs');
 
-global.Mongoose = require('mongoose')
-global.ExpressRoot = require('express')
-global.Express = ExpressRoot()
+global.Mongoose = require('mongoose');
+global.ExpressRoot = require('express');
+global.Express = ExpressRoot();
+
+let bodyParser = require('body-parser');
+Express.use(bodyParser.urlencoded({ extended: true })); 
 
 global.Handlebars = require('handlebars');
 global.Templates = {};
@@ -41,6 +44,7 @@ global.Templates.audio = Handlebars.compile(fs.readFileSync('./templates/audio.h
 global.Templates.video = Handlebars.compile(fs.readFileSync('./templates/video.html', 'utf-8'));
 global.Templates.document = Handlebars.compile(fs.readFileSync('./templates/document.html', 'utf-8'));
 global.Templates.download = Handlebars.compile(fs.readFileSync('./templates/download.html', 'utf-8'));
+global.Templates.password = Handlebars.compile(fs.readFileSync('./templates/password.html', 'utf-8'));
 
 let app = require('./app');
 
