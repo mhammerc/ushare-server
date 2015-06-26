@@ -75,4 +75,4 @@ function http(req, res)
 	});
 }
 
-module.exports = { http };
+module.exports = http;
