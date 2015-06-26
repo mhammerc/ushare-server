@@ -15,10 +15,6 @@ let userUploads = require('./modules/users/upload_list');
 
 function router()
 {
-	ExpressApp.get('/:id/:password?', function(req, res) {
-		readFile(req, res);
-	});
-
 	ExpressApp.get('/silent/:id', function(req, res) {
 		readFile(req, res, true);
 	});
@@ -57,6 +53,10 @@ function router()
 
 	ExpressApp.get('/', function(req, res) {
 		res.redirect(301, 'http://www.ushare.so');
+	});
+	
+	ExpressApp.get('/:id/:password?', function(req, res) {
+		readFile(req, res);
 	});
 }
 

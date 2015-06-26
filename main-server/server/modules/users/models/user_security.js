@@ -69,11 +69,11 @@ UserSecuritySchema.statics.verifyIdentity = function verifyIdentity(userId, priv
 
 			if(!document)
 			{
-				cb(false, false);
+				cb(null, false);
 				return;
 			}
 
-			cb(false, document);
+			cb(null, document);
 			
 			result.lastAccessAt = Date.now();
 			result.save();
