@@ -1,5 +1,6 @@
 'use strict';
 
+let request = require('request');
 let File = require('./models/file.js');
 
 function view(shortName, req, res)
@@ -51,6 +52,17 @@ function view(shortName, req, res)
         {
             res.send(Templates.audio({ url, name: document.originalFileName, size, mimetype: document.mimetype }));
             return;
+        }
+        else if(mimetype === 'text')
+        {
+            
+            request(url, function(error, response, body)
+            {
+               if(!error && response.statusCode === 200)
+               {
+                   res.send(Templates.paste({ url, name: document.originalFileName, size, paste: body}));
+               }
+            });
         }
         else if(
             document.mimetype === 'application/pdf' || 

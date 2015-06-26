@@ -45,6 +45,7 @@ global.Templates.video = Handlebars.compile(fs.readFileSync('./templates/video.h
 global.Templates.document = Handlebars.compile(fs.readFileSync('./templates/document.html', 'utf-8'));
 global.Templates.download = Handlebars.compile(fs.readFileSync('./templates/download.html', 'utf-8'));
 global.Templates.password = Handlebars.compile(fs.readFileSync('./templates/password.html', 'utf-8'));
+global.Templates.paste = Handlebars.compile(fs.readFileSync('./templates/paste.html', 'utf-8'));
 
 let app = require('./app');
 

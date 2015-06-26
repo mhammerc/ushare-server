@@ -17,7 +17,7 @@ function app()
     Express.post('/:id', function(req, res)
     {
         View(req.params.id, req, res);
-    })
+    });
     
     Express.use('/static', ExpressRoot.static('static'));
     

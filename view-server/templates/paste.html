@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/highlight/styles/solarized_dark.css" type="text/css" />
+        
+        <script src="/static/highlight/highlight.pack.js"></script>
+        <script src="/static/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+            
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+        
+        <title>{{name}} - uShare</title>
+    </head>
+    
+    <body>
+        
+        <nav>
+            <div class="nav-wrapper light-blue">
+                <div class="container">
+                    <a href="http://www.ushare.so" class="brand-logo">uShare</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="#">uShare Online</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="row">
+            <div class="col m8 s12">
+                <div class="paste z-depth-2">
+                    <pre><code>{{paste}}</code></pre>
+                </div>
+            </div>
+        
+            <div class="col m4 s12">
+                <div class="card">
+                    <div class="card-content black-text">
+                        <div class="input-field">
+                            <select id="css" class="browser-default" onchange="cssChanged()">
+                                <option value="" disabled selected>Choisissez votre style</option>
+                                <option value="solarized_dark.css">Solarized Dark (par défaut)</option>
+                                <option value="agate.css">Agate</option>
+                                <option value="androidstudio.css">Android Studio</option>
+                                <option value="arta.css">Arta</option>
+                                <option value="ascetic.css">Ascetic</option>
+                                <option value="atelier-cave.dark.css">Atelier Cave Dark</option>
+                                <option value="atelier-cave.light.css">Atelier Cave Light</option>
+                                <option value="atelier-dune.dark.css">Atelier Dune Dark</option>
+                                <option value="atelier-dune.light.css">Atelier Dune Light</option>
+                                <option value="atelier-estuary.dark.css">Atelier Estuary Dark</option>
+                                <option value="atelier-estuary.light.css">Atelier Estuary Light</option>
+                                <option value="atelier-forest.dark.css">Atelier Forest Dark</option>
+                                <option value="atelier-forest.light.css">Atelier Forest Light</option>
+                                <option value="atelier-heath.dark.css">Atelier Heath Dark</option>
+                                <option value="atelier-heath.light.css">Atelier Heath Light</option>
+                                <option value="atelier-lakeside.dark.css">Atelier Lakeside Dark</option>
+                                <option value="atelier-lakeside.light.css">Atelier Lakeside Light</option>
+                                <option value="atelier-plateau.dark.css">Atelier Plateau Dark</option>
+                                <option value="atelier-plateau.light.css">Atelier Plateau Light</option>
+                                <option value="atelier-savanna.dark.css">Atelier Savanna Dark</option>
+                                <option value="atelier-savanna.light.css">Atelier Savanna Light</option>
+                                <option value="atelier-seaside.dark.css">Atelier Seaside Dark</option>
+                                <option value="atelier-seaside.light.css">Atelier Seaside Light</option>
+                                <option value="atelier-sulphurpool.dark.css">Atelier Sulphurpool Dark</option>
+                                <option value="atelier-sulphurpool.light.css">Atelier Sulphurpool Light</option>
+                                <option value="brown_paper.css">Brown Paper</option>
+                                <option value="codepen-embed.css">Codepen Embed</option>
+                                <option value="color-brewer.css">Color Brewer</option>
+                                <option value="dark.css">Dark</option>
+                                <option value="darkula.css">Darkula</option>
+                                <option value="default.css">Default</option>
+                                <option value="docco.css">Docco</option>
+                                <option value="far.css">Far</option>
+                                <option value="foundation.css">Foundation</option>
+                                <option value="github-gist.css">GitHub Gist</option>
+                                <option value="github.css">GitHub</option>
+                                <option value="googlecode.css">Google Code</option>
+                                <option value="hybrid.css">Hybrid</option>
+                                <option value="idea.css">Idea</option>
+                                <option value="ir_black.css">Ir Black</option>
+                                <option value="kimbie.dark.css">Kimbie Dark</option>
+                                <option value="kimbie.light.css">Kimbie Light</option>
+                                <option value="magula.css">Magula</option>
+                                <option value="mono-blue.css">Mono Blue</option>
+                                <option value="monokai.css">Monokai</option>
+                                <option value="monokai_sublime.css">Monokai Sublime</option>
+                                <option value="obsidian.css">Obsidian</option>
+                                <option value="paraiso.dark.css">Paraiso Dark</option>
+                                <option value="paraiso.light.css">Paraiso Light</option>
+                                <option value="pojoaque.css">Pojoaque</option>
+                                <option value="railscasts.css">Railscasts</option>
+                                <option value="rainbow.css">Rainbow</option>
+                                <option value="solarized_light.css">Solarized Light</option>
+                                <option value="sunburst.css">Sunburst</option>
+                                <option value="tomorrow-night-blue.css">Tomorrow Night Blue</option>
+                                <option value="tomorrow-night-bright.css">Tomorrow Night Bright</option>
+                                <option value="tomorrow-night-eighties.css">Tomorrow Night Eighties</option>
+                                <option value="tomorrow.css">Tomorrow</option>
+                                <option value="vs.css">VS</option>
+                                <option value="xcode.css">xCode</option>
+                                <option value="zenburn.css">Zeeburn</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content black-text">
+                
+                        <ul>
+                            <li>Nom : {{name}}</li>
+                            <li>Taille : {{size}}</li>
+                        </ul>
+                
+                        <div class="center-align">
+                            <a href={{url}} class="waves-effect waves-light btn light-blue">
+                                <i class="material-icons left">file_download</i> Télécharger
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            //var paste = document.getElementById('paste');
+            //hljs.highlightBlock(paste);
+            hljs.initHighlighting();
+            
+            function cssChanged()
+            {
+                var cssSelect = document.getElementById('css');
+                var fakeCssId = 'myCss';
+                
+                var head = document.getElementsByTagName('head')[0];
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '/static/highlight/styles/' + cssSelect.value;
+                link.media = 'all';
+                head.appendChild(link);
+            }
+        </script>
+    </body>
+</html>

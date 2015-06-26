@@ -20,6 +20,7 @@
     "body-parser": "^1.13.1",
     "express": "^4.13.0",
     "handlebars": "^3.0.3",
-    "mongoose": "^4.0.5"
+    "mongoose": "^4.0.5",
+    "request": "^2.58.0"
   }
 }
