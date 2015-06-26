@@ -30,9 +30,9 @@ catch(e)
 
 let fs = require('fs');
 
-global.Mongoose = require('mongoose');
+global.Mongoose = require('mongoose')
 global.ExpressRoot = require('express')
-global.Express = ExpressRoot();
+global.Express = ExpressRoot()
 
 global.Handlebars = require('handlebars');
 global.Templates = {};
