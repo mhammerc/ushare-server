@@ -13,7 +13,7 @@ let FileSchema = new Mongoose.Schema(
 	password:
 	{
 		type: String,
-		default: "",
+		default: '',
 	},
 	views:
 	{

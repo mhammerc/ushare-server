@@ -20,6 +20,7 @@ This error mean that your credentials are wrong.
     Your credentials are not right.
     You've no rights on this file.
     You are already registered.
+    You\'re not authorized to get this file.
     
 ### 500 Internal server error
 That's probably an error from us, don't care we're working on it!

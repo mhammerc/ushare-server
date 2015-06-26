@@ -15,7 +15,7 @@ let userUploads = require('./modules/users/upload_list');
 
 function router()
 {
-	ExpressApp.get('/:id', function(req, res) {
+	ExpressApp.get('/:id/:password?', function(req, res) {
 		readFile(req, res);
 	});
 

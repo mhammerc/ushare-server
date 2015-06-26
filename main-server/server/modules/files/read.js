@@ -26,6 +26,15 @@ function read(req, res, silent)
 			res.status(404).send('Could not find your file.');
 			return;
 		}
+		
+		if(file.password)
+		{
+			if(!req.params.password || file.password !== req.params.password)
+			{
+				res.status(403).send('You\'re not authorized to get this file.');
+				return;
+			}
+		}
 
 		let filePath = path.resolve(Config.files.destination + file.fileName);
 
