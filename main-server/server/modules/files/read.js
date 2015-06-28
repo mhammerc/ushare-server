@@ -61,6 +61,8 @@ function read(req, res, silent)
 				User.findOne({ _id: file.author }, function(err, author)
 				{					
 					if(handleError(err)) return;
+					
+					if(!author) return;
 
 					author.incrementNumberOfViews();
 					author.save(function(err) { handleError(err) });

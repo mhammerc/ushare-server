@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="/static/style.css">
-        <link rel="stylesheet" href="/static/highlight/styles/solarized_dark.css" type="text/css" />
+        <link rel="stylesheet" href="/static/highlight/styles/solarized_dark.css" type="text/css" id='dynCss'/>
         
         <script src="/static/highlight/highlight.pack.js"></script>
         <script src="/static/jquery.min.js"></script>
@@ -127,22 +127,14 @@
         </div>
         
         <script>
-            //var paste = document.getElementById('paste');
-            //hljs.highlightBlock(paste);
             hljs.initHighlighting();
             
             function cssChanged()
             {
                 var cssSelect = document.getElementById('css');
-                var fakeCssId = 'myCss';
-                
-                var head = document.getElementsByTagName('head')[0];
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = '/static/highlight/styles/' + cssSelect.value;
-                link.media = 'all';
-                head.appendChild(link);
+                var cssId = '#dynCss';
+                var link = '/static/highlight/styles/' + cssSelect.value;
+                $(cssId).attr('href', link);
             }
         </script>
     </body>

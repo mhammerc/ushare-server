@@ -51,6 +51,11 @@ let UserSchema = new Mongoose.Schema(
 			type: String,
 			default: 'regular',
 		},
+		role:
+		{
+			type: String,
+			default: 'none',
+		},
 		avatarUrl:
 		{
 			type: String,
