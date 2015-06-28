@@ -51,12 +51,12 @@ function router()
 		res.redirect(301, 'http://www.ushare.so');
 	});
 	
-	ExpressApp.get('/:id/:password?', function(req, res) {
-		readFile(req, res);
-	});
-	
 	ExpressApp.get('/silent/:id/:password?', function(req, res) {
 		readFile(req, res, true);
+	});
+	
+	ExpressApp.get('/:id/:password?', function(req, res) {
+		readFile(req, res);
 	});
 }
 
