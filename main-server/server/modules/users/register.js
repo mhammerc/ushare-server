@@ -74,7 +74,7 @@ function register(req, res)
 
 		user._id = chance(Date.now()).string(Config.mongo._id);
 		user.username = body.username;
-		user.canonicalUsername = body.username.toLowercase().trim();
+		user.canonicalUsername = body.username.toLowerCase().trim();
 		user.setPassword(body.password);
 		user.addEmailAddress(body.email);
 
