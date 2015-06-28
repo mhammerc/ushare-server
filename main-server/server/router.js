@@ -15,10 +15,6 @@ let userUploads = require('./modules/users/upload_list');
 
 function router()
 {
-	ExpressApp.get('/silent/:id', function(req, res) {
-		readFile(req, res, true);
-	});
-
 	ExpressApp.post('/file/upload', function(req, res)	{
 		uploadFile(req, res);
 	});
@@ -57,6 +53,10 @@ function router()
 	
 	ExpressApp.get('/:id/:password?', function(req, res) {
 		readFile(req, res);
+	});
+	
+	ExpressApp.get('/silent/:id/:password?', function(req, res) {
+		readFile(req, res, true);
 	});
 }
 

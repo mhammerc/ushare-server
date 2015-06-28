@@ -67,7 +67,7 @@ function http(req, res)
 				const file = {};
 
 				file.link = Config.app.viewUrl + element.shortName;
-				file.silentLink = Config.app.apiUrl + 'silent/' + element.shortName;
+				file.silentLink = Config.app.apiUrl + 'silent/' + element.shortName + '/' + element.password;
 				file.shortname = element.shortName;
 				file.name = element.originalFileName;
 				file.size = element.size;

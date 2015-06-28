@@ -32,10 +32,11 @@ let UserSchema = new Mongoose.Schema(
 		default: chance(Date.now()).string(Config.mongo._id)
 	},
 	username: String,
+	canonicalUsername: String,
 	mainEmailAddress: String,
-	profile: 
+	profile:
 	{
-		numberOfFiles: 
+		numberOfFiles:
 		{
 			type: Number,
 			default: 0,
@@ -65,13 +66,13 @@ let UserSchema = new Mongoose.Schema(
 	{
 		password:
 		{
-			bcrypt: 
+			bcrypt:
 			{
 				type: String,
 				set: encryptPassword,
 			},
 		},
-		resume: 
+		resume:
 		{
 			loginTokens: [LoginTokensSchema],
 		},
@@ -89,15 +90,18 @@ let UserSchema = new Mongoose.Schema(
  */
 UserSchema.statics.getUser = function getUser(username, password, cb)
 {
-	this.findOne({ username }, function(err, document)
+	this.findOne(
 	{
-		if(err)
+		canonicalUsername: username.toLowerCase().trim()
+	}, function(err, document)
+	{
+		if (err)
 		{
 			cb(err);
 			return;
 		}
 
-		if(!document)
+		if (!document)
 		{
 			cb(null, false);
 			return;
@@ -105,13 +109,13 @@ UserSchema.statics.getUser = function getUser(username, password, cb)
 
 		bcrypt.compare(password, document.services.password.bcrypt, function(err, result)
 		{
-			if(err)
+			if (err)
 			{
 				cb(err, false);
 				return;
 			}
 
-			if(!result)
+			if (!result)
 			{
 				cb(null, false);
 				return;
@@ -132,11 +136,11 @@ UserSchema.methods.addEmailAddress = function addEmailAddress(email)
 {
 	this.emails.push(
 	{
-		address: email, 
+		address: email,
 		verified: false,
 	});
 
-	if(!this.mainEmailAddress)
+	if (!this.mainEmailAddress)
 	{
 		this.mainEmailAddress = email;
 	}

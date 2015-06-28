@@ -31,7 +31,7 @@ function http(req, res)
 		let auth = new UserSecurity();
 		auth.privateKey = auth.generateNewPrivateKey();
 		auth.accountKey = user._id;
-		auth.ipv4 = req.ip;
+		auth.ipv4 = req.get('X-Real-Ip');
 		auth.source = body.source;
 
 		auth.save(function(err)

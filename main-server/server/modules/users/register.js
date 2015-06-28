@@ -48,6 +48,9 @@ function register(req, res)
 		}, 
 		{
 			mainEmailAddress: body.email
+		},
+		{
+			canonicalUsername: body.username.toLowercase().trim();
 		}
 	]);
 
@@ -71,6 +74,7 @@ function register(req, res)
 
 		user._id = chance(Date.now()).string(Config.mongo._id);
 		user.username = body.username;
+		user.canonicalUsername = body.username.toLowercase().trim();
 		user.setPassword(body.password);
 		user.addEmailAddress(body.email);
 
