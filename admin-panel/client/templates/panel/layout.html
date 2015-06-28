@@ -1,0 +1,44 @@
+<template name="PanelLayout">
+<header>
+<nav>
+   	<div class="nav-wrapper">
+   		<a class="brand-logo center">uShare</a>
+   	</div>
+  	<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+</nav>
+
+   	<ul id="slide-out" class="side-nav fixed">
+   		<li class="logo center-align"><img src="logo.png" class="brand-logo"></li>
+    	<li class="bold"><a href="#!" class="waves-effect waves-blue">Index</a></li>
+    	<li class="no-padding">
+    		<ul class="collapsible collapsible-accordion">
+    			<li class="bold">
+    				<a class="collapsible-header waves-effect waves-blue">Files</a>
+    				<div class="collapsible-body">
+    					<ul>
+    						<li><a href="#!">Last files</a></li>
+    						<li><a href="#!">Stats</a></li>
+    						<li><a href="#!">Reports</a></li>
+    					</ul>
+    				</div>
+    			</li>
+    			<li class="bold">
+					<a class="collapsible-header waves-effect waves-blue">Users</a>
+					<div class="collapsible-body">
+						<ul>
+							<li><a href="#!">Last users</a></li>
+						</ul>
+					</div>
+    			</li>
+    		</ul>
+    	</li>
+  	</ul>
+
+</header>
+
+<main>
+	<div class="container">
+		{{>yield}}
+	</div>
+</main>
+</template>

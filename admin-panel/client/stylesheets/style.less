@@ -1,0 +1,47 @@
+@background-color: #212121;
+@regular-1: #263238;
+
+html
+{
+	background-color: @background-color;
+}
+
+nav
+{
+	background-color: @regular-1;
+}
+
+/* --- FORMS --- */
+
+/* label color */
+.input-field label 
+{
+	color: #FFF;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label 
+{
+	color: #FFF;
+	opacity: 0.8;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus 
+{
+	border-bottom: 1px solid #33691e;
+	box-shadow: 0 1px 0 0 #33691e;
+}
+
+header, main, footer 
+{
+	padding-left: 240px;
+}
+
+@media only screen and (max-width : 992px) 
+{
+	header, main, footer 
+    {
+    	padding-left: 0;
+    }
+}

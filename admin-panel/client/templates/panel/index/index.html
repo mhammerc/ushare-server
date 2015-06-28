@@ -1,0 +1,28 @@
+<template name="PanelIndex">
+
+<div class="row">
+	<div class="col s12 m4">
+	<div class="card blue-grey darken-1">
+		<div class="card-content white-text">
+		<span class="card-title">Some numbers</span>
+		<p>
+			Total views : {{totalViews}}<br />
+			Total files : {{totalFiles}}<br />
+			Total users : {{totalUsers}}<br />
+			Total auths : {{totalAuths}}<br />
+		</p>
+		</div>
+	</div>
+	</div>
+
+	<div class="col s12 m5">
+	<div class="card blue-grey darken-1">
+		<div class="card-content white-text">
+		<span class="card-title">Files type</span>
+			<canvas id="filesTypeChart" width="290" height="290"></canvas>
+		</div>
+	</div>
+	</div>
+
+</div>
+</template>
