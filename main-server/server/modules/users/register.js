@@ -50,7 +50,7 @@ function register(req, res)
 			mainEmailAddress: body.email
 		},
 		{
-			canonicalUsername: body.username.toLowercase().trim()
+			canonicalUsername: body.username.toLowerCase().trim()
 		}
 	]);
 
