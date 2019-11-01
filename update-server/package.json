@@ -18,6 +18,6 @@
   "homepage": "https://github.com/martin-mh/ushare-server#readme",
   "dependencies": {
     "express": "^4.12.4",
-    "mongoose": "^4.0.5"
+    "mongoose": "^5.7.7"
   }
 }
